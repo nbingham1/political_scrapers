@@ -120,25 +120,71 @@
         "name": "San Francisco Office:"
       }, 
       {
+        "phone": "(310) 914-7300", 
+        "fax": "(310) 914-7318", 
+        "street": "11111 Santa Monica Blvd. Suite 915 Los Angeles, CA 90025", 
         "name": "Los Angeles Office:"
       }, 
       {
+        "phone": "(619) 231-9712", 
+        "fax": "(619) 231-1108", 
+        "street": "880 Front Street Suite 3296 San Diego, CA 92101", 
         "name": "San Diego Office:"
       }, 
       {
+        "main": "(559) 485-7430", 
+        "fax": "(559) 485-9689", 
+        "street": "2500 Tulare Street Suite 4290 Fresno, CA 93721", 
         "name": "Fresno Office:"
       }
     ], 
     "name": "Dianne Feinstein"
   }, 
   {
+    "img": "http://www.cadem.org/our-party/elected-officials/u-s-senate/image/Kamala-Harris.jpg", 
     "links": [
       "https://www.harris.senate.gov/HomePage"
     ], 
-    "img": "http://www.cadem.org/our-party/elected-officials/u-s-senate/image/Kamala-Harris.jpg", 
-    "name": "Kamala Harris", 
     "office": "U.S. Senator", 
-    "state": "California"
+    "state": "California", 
+    "address": [
+      {
+        "phone": "(202) 224-3553", 
+        "street": "40B Dirksen Senate Office Building Washington, DC 20510", 
+        "name": "Washington D.C."
+      }, 
+      {
+        "phone": "(916) 448 - 2787", 
+        "fax": "(202) 228 - 3863", 
+        "street": "201 I Street Suite 7-600 Sacramento, CA  95814", 
+        "name": "Sacramento"
+      }, 
+      {
+        "phone": "(916) 448 - 2787", 
+        "fax": "(202) 228 - 3863", 
+        "street": "2500 Tulare Street Suite 5290 Fresno, CA 93721", 
+        "name": "Fresno"
+      }, 
+      {
+        "phone": "(213) 894 - 5000", 
+        "fax": "(202) 224 - 0357", 
+        "street": "312 N. Spring St.  Suite 1748 Los Angeles, CA  90012", 
+        "name": "Los Angeles"
+      }, 
+      {
+        "phone": "(916) 448 - 2787", 
+        "fax": "(202) 228 - 3863", 
+        "street": "50 Nations Plaza Rooms 5584  &  5598 San Francisco, CA  94102", 
+        "name": "San Francisco"
+      }, 
+      {
+        "phone": "(619) 239 - 3884", 
+        "fax": "(202) 228 - 3863", 
+        "street": "600 B Street Suite 2240 San Diego, CA  92101", 
+        "name": "San Diego"
+      }
+    ], 
+    "name": "Kamala Harris"
   }, 
   {
     "links": [

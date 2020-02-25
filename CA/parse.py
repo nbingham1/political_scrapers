@@ -136,9 +136,11 @@ class ParseCA:
 				entry["links"] = links
 
 			query = official.get("div", Class="office")
+			if not query:
+				query = [Div() << [h, p] for h, p in zip(official.get("h2"), official.get("p"))]	
 			address = []
 			for office in query:
-				loc = {}	
+				loc = {}
 				query2 = office.get("h2")
 				if len(query2) == 1:
 					loc["name"] = query2[0].content[0]
@@ -146,18 +148,24 @@ class ParseCA:
 					print "Error: More than one office name"
 
 				query2 = office.get("p")
+				if not query2:
+					query2 = office.get("div", Class="address")
 				if len(query2) == 1:
 					for elem in query2[0].content:
 						if not isinstance(elem, STag):
 							if ": " in elem:
 								sep = elem.index(":")
 								loc[elem[0:sep].lower()] = elem[sep+2:]
+							elif "Phone " in elem:
+								loc["phone"] = elem[6:]
+							elif "Fax " in elem:
+								loc["fax"] = elem[4:]
 							elif elem.strip() and "street" not in loc:
 								loc["street"] = elem
 							elif elem.strip():
 								loc["street"] += " " + elem
-
 				address.append(loc)
+
 			if address:
 				entry["address"] = address
 			entry["state"] = "California"
