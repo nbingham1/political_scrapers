@@ -1,0 +1,2035 @@
+[
+  {
+    "links": [
+      "http://www.ltg.ca.gov/"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/gavinnewsom_head.gif", 
+    "name": "Gavin Newsom", 
+    "office": "Governor", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://ltg.ca.gov/"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/eleni-kounalakis-headshot-1.jpg", 
+    "name": "Eleni Kounalakis", 
+    "office": "Lieutenant Governor", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://www.sos.ca.gov/"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/Alex_Padilla_1.png", 
+    "name": "Alex Padilla", 
+    "office": "Secretary of State", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://www.sco.ca.gov/"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/Betty_Yee.jpg", 
+    "name": "Betty T. Yee", 
+    "office": "Controller", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://www.treasurer.ca.gov/"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/Fiona-Ma-3.jpg", 
+    "name": "Fiona Ma", 
+    "office": "Treasurer", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://oag.ca.gov/"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/Becerra.jpg", 
+    "name": "Xavier Becerra", 
+    "office": "Attorney General", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://www.insurance.ca.gov/"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/ricardo_lara.jpg", 
+    "name": "Ricardo Lara", 
+    "office": "Insurance Commissioner", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://www.cde.ca.gov/re/di/or/osspi.asp"
+    ], 
+    "img": "http://www.cadem.org/elected-leaders/image/Tony-Thurmond.jpg", 
+    "name": "Tony Thurmond", 
+    "office": "Superintendent of Public Instruction ", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://www.boe.ca.gov/Cohen"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/Malia-Cohen-web.jpg", 
+    "name": "Malia Cohen ", 
+    "office": "Board of Equalization (District 2)", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://www.boe.ca.gov/vazquez/"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/vazquez-web.jpg", 
+    "name": "Tony Vazquez", 
+    "office": "Board of Equalization (District 3)", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://www.boe.ca.gov/schaefer/"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/statewide/image/schaefer-web.jpg", 
+    "name": "Mike Schaefer", 
+    "office": "Board of Equalization (District 4)", 
+    "state": "California"
+  }, 
+  {
+    "img": "http://www.cadem.org/our-party/elected-officials/u-s-senate/image/CandidateFeinsteinSmallPic.JPG", 
+    "links": [
+      "http://feinstein.senate.gov/public/index.cfm?FuseAction=Home.Home"
+    ], 
+    "office": "U.S. Senator", 
+    "state": "California", 
+    "address": [
+      {
+        "phone": "(202) 224-3841", 
+        "fax": "(202) 228-3954", 
+        "street": "331 Hart Senate Office Bldg. Washington, D.C. 20510", 
+        "name": "Washington, DC Office:", 
+        "tty/tdd": "(202) 224-2501"
+      }, 
+      {
+        "phone": "(415) 393-0707", 
+        "fax": "(415) 393-0710", 
+        "street": "One Post Street Suite 2450 San Francisco, CA 94104", 
+        "name": "San Francisco Office:"
+      }, 
+      {
+        "name": "Los Angeles Office:"
+      }, 
+      {
+        "name": "San Diego Office:"
+      }, 
+      {
+        "name": "Fresno Office:"
+      }
+    ], 
+    "name": "Dianne Feinstein"
+  }, 
+  {
+    "links": [
+      "https://www.harris.senate.gov/HomePage"
+    ], 
+    "img": "http://www.cadem.org/our-party/elected-officials/u-s-senate/image/Kamala-Harris.jpg", 
+    "name": "Kamala Harris", 
+    "office": "U.S. Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://huffman.house.gov/"
+    ], 
+    "name": "Jared Huffman", 
+    "office": "CD 02 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://garamendi.house.gov/"
+    ], 
+    "name": "John Garamendi", 
+    "office": "CD 03 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://mikethompson.house.gov/"
+    ], 
+    "name": "Mike Thompson", 
+    "office": "CD 05 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://matsui.house.gov/"
+    ], 
+    "name": "Doris Matsui", 
+    "office": "CD 06 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://bera.house.gov/"
+    ], 
+    "name": "Ami Bera", 
+    "office": "CD 07 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://mcnerney.house.gov/"
+    ], 
+    "name": "Jerry McNerney", 
+    "office": "CD 09 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://harder.house.gov/"
+    ], 
+    "name": "Josh Harder", 
+    "office": "CD 10 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://desaulnier.house.gov/"
+    ], 
+    "name": "Mark DeSaulnier", 
+    "office": "CD 11 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://pelosi.house.gov/"
+    ], 
+    "name": "Nancy Pelosi", 
+    "office": "CD 12 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://lee.house.gov/"
+    ], 
+    "name": "Barbara Lee", 
+    "office": "CD 13 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://speier.house.gov/"
+    ], 
+    "name": "Jackie Speier", 
+    "office": "CD 14 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://swalwell.house.gov/"
+    ], 
+    "name": "Eric Swalwell", 
+    "office": "CD 15 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://costa.house.gov/"
+    ], 
+    "name": "Jim Costa", 
+    "office": "CD 16 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://khanna.house.gov/"
+    ], 
+    "name": "Ro Khanna", 
+    "office": "CD 17 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://eshoo.house.gov/"
+    ], 
+    "name": "Anna Eshoo", 
+    "office": "CD 18 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://lofgren.house.gov/"
+    ], 
+    "name": "Zoe Lofgren", 
+    "office": "CD 19 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://panetta.house.gov/"
+    ], 
+    "name": "Jimmy Panetta", 
+    "office": "CD 20 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://cox.house.gov/"
+    ], 
+    "name": "TJ Cox", 
+    "office": "CD 21 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://carbajal.house.gov/"
+    ], 
+    "name": "Salud Carbajal", 
+    "office": "CD 24 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://katiehill.house.gov/"
+    ], 
+    "name": "Katie Hill", 
+    "office": "CD 25 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://juliabrownley.house.gov/"
+    ], 
+    "name": "Julia Brownley", 
+    "office": "CD 26 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://chu.house.gov/"
+    ], 
+    "name": "Judy Chu", 
+    "office": "CD 27 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://schiff.house.gov/"
+    ], 
+    "name": "Adam Schiff", 
+    "office": "CD 28 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://cardenas.house.gov/"
+    ], 
+    "name": "Tony Cardenas", 
+    "office": "CD 29 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sherman.house.gov/"
+    ], 
+    "name": "Brad Sherman", 
+    "office": "CD 30 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://aguilar.house.gov/"
+    ], 
+    "name": "Pete Aguilar", 
+    "office": "CD 31 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://napolitano.house.gov/"
+    ], 
+    "name": "Grace Napolitano", 
+    "office": "CD 32 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://lieu.house.gov/"
+    ], 
+    "name": "Ted Lieu", 
+    "office": "CD 33 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://gomez.house.gov"
+    ], 
+    "name": "Jimmy Gomez", 
+    "office": "CD 34 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://torres.house.gov/"
+    ], 
+    "name": "Norma Torres", 
+    "office": "CD 35 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://ruiz.house.gov/"
+    ], 
+    "name": "Raul Ruiz", 
+    "office": "CD 36 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://bass.house.gov/"
+    ], 
+    "name": "Karen Bass", 
+    "office": "CD 37 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://lindasanchez.house.gov/"
+    ], 
+    "name": "Linda Sanchez", 
+    "office": "CD 38 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://cisneros.house.gov/about"
+    ], 
+    "name": "Gil Cisneros", 
+    "office": "CD 39 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://roybal-allard.house.gov/"
+    ], 
+    "name": "Lucille Roybal-Allard", 
+    "office": "CD 40 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://takano.house.gov/"
+    ], 
+    "name": "Mark Takano", 
+    "office": "CD 41 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://waters.house.gov/"
+    ], 
+    "name": "Maxine Waters", 
+    "office": "CD 43 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://barragan.house.gov/"
+    ], 
+    "name": "Nanette Diaz Barragan", 
+    "office": "CD 44 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://porter.house.gov/"
+    ], 
+    "name": "Katie Porter", 
+    "office": "CD 45 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://correa.house.gov/"
+    ], 
+    "name": "J. Luis Correa", 
+    "office": "CD 46 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://lowenthal.house.gov/"
+    ], 
+    "name": "Alan Lowenthal", 
+    "office": "CD 47 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://rouda.house.gov/"
+    ], 
+    "name": "Harley Rouda", 
+    "office": "CD 48 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://mikelevin.house.gov/"
+    ], 
+    "name": "Mike Levin", 
+    "office": "CD 49 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://vargas.house.gov/"
+    ], 
+    "name": "Juan Vargas ", 
+    "office": "CD 51 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://scottpeters.house.gov/"
+    ], 
+    "name": "Scott Peters", 
+    "office": "CD 52 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://susandavis.house.gov/"
+    ], 
+    "name": "Susan Davis", 
+    "office": "CD 53 Representative", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd02.senate.ca.gov/"
+    ], 
+    "name": "Mike McGuire", 
+    "office": "SD 02 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd03.senate.ca.gov/"
+    ], 
+    "name": "Bill Dodd", 
+    "office": "SD 03 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd05.senate.ca.gov/"
+    ], 
+    "name": "Cathleen Galgiani", 
+    "office": "SD 05 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd06.senate.ca.gov/"
+    ], 
+    "name": "Richard Pan", 
+    "office": "SD 06 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd07.senate.ca.gov/"
+    ], 
+    "name": "Steve Glazer", 
+    "office": "SD 07 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd09.senate.ca.gov/"
+    ], 
+    "name": "Nancy Skinner", 
+    "office": "SD 09 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd10.senate.ca.gov/"
+    ], 
+    "name": "Bob Weickowski", 
+    "office": "SD 10 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd11.senate.ca.gov/"
+    ], 
+    "name": "Scott Wiener", 
+    "office": "SD 11 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://sd12.senate.ca.gov/"
+    ], 
+    "name": "Anna Caballero", 
+    "office": "SD 12 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd13.senate.ca.gov/"
+    ], 
+    "name": "Jerry Hill", 
+    "office": "SD 13 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://sd14.senate.ca.gov/"
+    ], 
+    "name": "Melissa Hurtado", 
+    "office": "SD 14 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd15.senate.ca.gov/"
+    ], 
+    "name": "Jim Beall", 
+    "office": "SD 15 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd17.senate.ca.gov/"
+    ], 
+    "name": "Bill Monning", 
+    "office": "SD 17 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd18.senate.ca.gov/"
+    ], 
+    "name": "Robert M. Hertzberg", 
+    "office": "SD 18 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd19.senate.ca.gov/"
+    ], 
+    "name": "Hannah-Beth Jackson", 
+    "office": "SD 19 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd20.senate.ca.gov/"
+    ], 
+    "name": "Connie M. Levya", 
+    "office": "SD 20 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://sd22.senate.ca.gov/"
+    ], 
+    "name": "Susan Rubio", 
+    "office": "SD 22 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://sd24.senate.ca.gov/"
+    ], 
+    "name": "Maria Elena Durazo", 
+    "office": "SD 24 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd25.senate.ca.gov/"
+    ], 
+    "name": "Anthony Portantino", 
+    "office": "SD 25 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd26.senate.ca.gov/"
+    ], 
+    "name": "Ben Allen", 
+    "office": "SD 26 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd27.senate.ca.gov/"
+    ], 
+    "name": "Henry Stern", 
+    "office": "SD 27 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd30.senate.ca.gov/"
+    ], 
+    "name": "Holly J. Mitchell", 
+    "office": "SD 30 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd31.senate.ca.gov/"
+    ], 
+    "name": "Richard D. Roth", 
+    "office": "SD 31 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://sd32.senate.ca.gov/"
+    ], 
+    "name": "Bob Archuleta", 
+    "office": "SD 32 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://ballotpedia.org/California_state_legislative_special_elections,_2019"
+    ], 
+    "name": "Vacant", 
+    "office": "SD 33 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd35.senate.ca.gov/"
+    ], 
+    "name": "Steven Bradford", 
+    "office": "SD 35 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd39.senate.ca.gov/"
+    ], 
+    "name": "Senate President pro Tempore Toni G. Atkins", 
+    "office": "SD 39 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://sd40.senate.ca.gov/"
+    ], 
+    "name": "Ben Hueso", 
+    "office": "SD 40 Senator", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a02/"
+    ], 
+    "name": "Jim Wood", 
+    "office": "AD 02 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a04/"
+    ], 
+    "name": "Cecilia Aguiar-Curry", 
+    "office": "AD 04 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a07/"
+    ], 
+    "name": "Kevin McCarty", 
+    "office": "AD 07 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a08/"
+    ], 
+    "name": "Ken Cooley", 
+    "office": "AD 08 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a09/"
+    ], 
+    "name": "Jim Cooper", 
+    "office": "AD 09 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a10/"
+    ], 
+    "name": "Marc Levine", 
+    "office": "AD 10 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a11/"
+    ], 
+    "name": "Jim Frazier", 
+    "office": "AD 11 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a13/"
+    ], 
+    "name": "Susan Talamantes Eggman", 
+    "office": "AD 13 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a14/"
+    ], 
+    "name": "Tim Grayson", 
+    "office": "AD 14 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://a15.asmdc.org/"
+    ], 
+    "name": "Buffy Wicks", 
+    "office": "AD 15 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://a16.asmdc.org/"
+    ], 
+    "name": "Rebecca Bauer-Kahan", 
+    "office": "AD 16 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a17/"
+    ], 
+    "name": "David Chiu", 
+    "office": "AD 17 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a18/"
+    ], 
+    "name": "Rob Bonta", 
+    "office": "AD 18 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a19/"
+    ], 
+    "name": "Phil Ting", 
+    "office": "AD 19 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a20/"
+    ], 
+    "name": "Bill Quirk", 
+    "office": "AD 20 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a21/"
+    ], 
+    "name": "Adam Gray ", 
+    "office": "AD 21 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a22/"
+    ], 
+    "name": "Kevin Mullin", 
+    "office": "AD 22 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a24/"
+    ], 
+    "name": "Marc Berman", 
+    "office": "AD 24 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a25/"
+    ], 
+    "name": "Kansen Chu", 
+    "office": "AD 25 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a27/"
+    ], 
+    "name": "Ash Kalra", 
+    "office": "AD 27 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a28/"
+    ], 
+    "name": "Evan Low", 
+    "office": "AD 28 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a29/"
+    ], 
+    "name": "Mark Stone", 
+    "office": "AD 29 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://a30.asmdc.org/"
+    ], 
+    "name": "Robert Rivas", 
+    "office": "AD 30 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a31/"
+    ], 
+    "name": "Dr. Joaquin Arambula", 
+    "office": "AD 31 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a32/"
+    ], 
+    "name": "Rudy Salas Jr. ", 
+    "office": "AD 32 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a37/"
+    ], 
+    "name": "S. Monique Lim\u00c3\u00b3n", 
+    "office": "AD 37 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a41/"
+    ], 
+    "name": "Chris R. Holden", 
+    "office": "AD 41 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a43/"
+    ], 
+    "name": "Laura Friedman", 
+    "office": "AD 43 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a44/"
+    ], 
+    "name": "Jacqui Irwin ", 
+    "office": "AD 44 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a46/"
+    ], 
+    "name": "Adrin Nazarian ", 
+    "office": "AD 46 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a47/"
+    ], 
+    "name": "Eloise Reyes", 
+    "office": "AD 47 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a48/"
+    ], 
+    "name": "Blanca Rubio", 
+    "office": "AD 48 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a49/"
+    ], 
+    "name": "Ed Chau", 
+    "office": "AD 49 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a50/"
+    ], 
+    "name": "Richard Bloom", 
+    "office": "AD 50 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://a51.asmdc.org"
+    ], 
+    "name": "Wendy Carillo", 
+    "office": "AD 51 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a52/"
+    ], 
+    "name": "Freddie Rodriguez", 
+    "office": "AD 52 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a53/"
+    ], 
+    "name": "Miguel Santiago", 
+    "office": "AD 53 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a56/"
+    ], 
+    "name": "Eduardo Garcia", 
+    "office": "AD 56 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a57/"
+    ], 
+    "name": "Ian C. Calderon", 
+    "office": "AD 57 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a58/"
+    ], 
+    "name": "Cristina Garcia", 
+    "office": "AD 58 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a59/"
+    ], 
+    "name": "Reggie Jones-Sawyer Sr.", 
+    "office": "AD 59 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a61/"
+    ], 
+    "name": "Jose Medina", 
+    "office": "AD 61 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a60/"
+    ], 
+    "name": "Sabrina Cervantes", 
+    "office": "AD 60 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a62/"
+    ], 
+    "name": "Autumn Burke", 
+    "office": "AD 62 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/speaker/"
+    ], 
+    "name": "Assembly Speaker Anthony Rendon", 
+    "office": "AD 63 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a64/"
+    ], 
+    "name": "Mike A. Gipson", 
+    "office": "AD 64 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a69/"
+    ], 
+    "name": "Tom Daly", 
+    "office": "AD 69 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a65/"
+    ], 
+    "name": "Sharon Quirk-Silva", 
+    "office": "AD 65 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a66/"
+    ], 
+    "name": "Al Muratsuchi", 
+    "office": "AD 66 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a70/"
+    ], 
+    "name": "Patrick O'Donnell", 
+    "office": "AD 70 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://a74.asmdc.org/"
+    ], 
+    "name": "Cottie Petrie-Norris", 
+    "office": "AD 74 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "https://a76.asmdc.org/"
+    ], 
+    "name": "Tasha Boerner Horvath", 
+    "office": "AD 76 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a78/"
+    ], 
+    "name": "Todd Gloria", 
+    "office": "AD 78 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a79/"
+    ], 
+    "name": "Shirley Weber", 
+    "office": "AD 79 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "http://asmdc.org/members/a80/"
+    ], 
+    "name": "Lorena Gonzalez Fletcher", 
+    "office": "AD 80 Assemblymember", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "chair@cadem.org"
+    ], 
+    "img": "http://www.cadem.org/our-party/leaders/officers-and-regional-directors/image/Rusty-Hicks-web.jpg", 
+    "name": "Rusty Hicks", 
+    "office": "Chair", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "alex@cadem.org"
+    ], 
+    "img": "http://www.cadem.org/our-party/leaders/officers-and-regional-directors/image/Alex-Gallardo-Rooker_0111sm.jpg", 
+    "name": "Alexandra \"Alex\" Gallardo-Rooker", 
+    "office": "Vice Chair", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "daraka@cadem.org"
+    ], 
+    "img": "http://www.cadem.org/our-party/leaders/officers-and-regional-directors/image/Daraka_6.jpg", 
+    "name": "Daraka Larimore-Hall", 
+    "office": "Vice-Chair", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "secretary@cadem.org"
+    ], 
+    "img": "http://www.cadem.org/our-party/leaders/officers-and-regional-directors/image/Bach.png", 
+    "name": "Jenny Bach", 
+    "office": "Secretary", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "controller@cadem.org"
+    ], 
+    "img": "http://www.cadem.org/our-party/leaders/officers-and-regional-directors/image/weitzman.png", 
+    "name": "Dan Weitzman", 
+    "office": "Controller", 
+    "state": "California"
+  }, 
+  {
+    "phone": "530.636.5952", 
+    "links": [
+      "billmonroecadem@gmail.com"
+    ], 
+    "name": "William Monroe", 
+    "office": "Assembly Districts 1, 3,", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "debrabroner@gmail.com"
+    ], 
+    "name": "Debra Broner", 
+    "office": "Assembly Districts 2, 10", 
+    "state": "California"
+  }, 
+  {
+    "phone": "707-688-3004 ", 
+    "links": [
+      "henleyL@aol.com"
+    ], 
+    "name": "Lynette Henley", 
+    "office": "Assembly Districts 4, 11, 14, 16", 
+    "state": "California"
+  }, 
+  {
+    "phone": "916.612.1678", 
+    "links": [
+      "EricRegion3@gmail.com"
+    ], 
+    "name": "Eric Sunderland", 
+    "office": "Assembly Districts 6, 7, 8, 9", 
+    "state": "California"
+  }, 
+  {
+    "phone": "209-600-3864", 
+    "state": "California", 
+    "name": "Alejandro Carrillo", 
+    "office": "Assembly Districts 5, 12, 13, 21"
+  }, 
+  {
+    "phone": "925.364.4546", 
+    "links": [
+      "rocky.fernandez@gmail.com"
+    ], 
+    "name": "Rocky Fernandez", 
+    "office": "Assembly Districts 15, 18, 20, 25", 
+    "state": "California"
+  }, 
+  {
+    "phone": "415.533.5244", 
+    "links": [
+      "henekelly@aol.com"
+    ], 
+    "name": "Hene Kelly", 
+    "office": "Assembly Districts 17, 19, 22, 24", 
+    "state": "California"
+  }, 
+  {
+    "phone": "408.750.6773", 
+    "links": [
+      "Omartorres2014@gmail.com"
+    ], 
+    "name": "Omar Torres", 
+    "office": "Assembly Districts 27, 28, 29, 30", 
+    "state": "California"
+  }, 
+  {
+    "phone": "559.859.7379", 
+    "links": [
+      "humberto.gomez@gmail.com"
+    ], 
+    "name": "Humberto Gomez Jr.", 
+    "office": "Assembly Districts 23, 31, 32, 34", 
+    "state": "California"
+  }, 
+  {
+    "phone": "661-478-9330", 
+    "links": [
+      "dlove717@roadrunner.com"
+    ], 
+    "name": "Diana Love", 
+    "office": "Assembly Districts 26, 33, 36, 40", 
+    "state": "California"
+  }, 
+  {
+    "phone": "323.353.5229", 
+    "links": [
+      "dorestes@gmail.com"
+    ], 
+    "name": "David Atkins", 
+    "office": "Assembly Districts 35, 37, 38, 44", 
+    "state": "California"
+  }, 
+  {
+    "phone": "323.739.8904", 
+    "links": [
+      "Mark4Region11@gmail.com"
+    ], 
+    "name": "Mark Ramos", 
+    "office": "Assembly Districts 41, 43, 51, 53", 
+    "state": "California"
+  }, 
+  {
+    "phone": "323.377.0044", 
+    "links": [
+      "larry_gross@icloud.com"
+    ], 
+    "name": "Larry Gross", 
+    "office": "Assembly Districts 39, 45, 46, 50", 
+    "state": "California"
+  }, 
+  {
+    "phone": "951-227-9454", 
+    "links": [
+      "mahasrizvi15@gmail.com"
+    ], 
+    "name": "Maha Rizvi", 
+    "office": "Assembly Districts 47, 52, 60, 61", 
+    "state": "California"
+  }, 
+  {
+    "phone": "(323) 484-6459", 
+    "state": "California", 
+    "name": "Miguel Martinez", 
+    "office": "Assembly Districts 54, 59, 62, 64"
+  }, 
+  {
+    "links": [
+      "region15cdp@gmail.com"
+    ], 
+    "name": "Primo Castro", 
+    "office": "Assembly Districts 48, 49, 55, 57", 
+    "state": "California"
+  }, 
+  {
+    "links": [
+      "cdpregion16@gmail.com"
+    ], 
+    "name": "Sergio Carrillo", 
+    "office": "Assembly Districts 58, 63, 66, 70", 
+    "state": "California"
+  }, 
+  {
+    "phone": "626.524.5965", 
+    "links": [
+      "region17cdp@gmail.com"
+    ], 
+    "name": "Florice", 
+    "office": "Assembly Districts 65, 68, 69, 72", 
+    "state": "California"
+  }, 
+  {
+    "phone": "949.521.3292", 
+    "links": [
+      "politicaldeb@outlook.com"
+    ], 
+    "name": "Deborah Cunningham- Skurnik", 
+    "office": "Assembly Districts 73, 74, 75, 76", 
+    "state": "California"
+  }, 
+  {
+    "phone": "818-404-6401", 
+    "links": [
+      "CDP.Region19@gmail.com"
+    ], 
+    "name": "Michael Milan", 
+    "office": "Assembly Districts 42, 56, 67, 71", 
+    "state": "California"
+  }, 
+  {
+    "state": "California", 
+    "name": "Michelle Krug", 
+    "office": "Assembly Districts 77, 78, 79, 80"
+  }, 
+  {
+    "name": "Robin Torello", 
+    "links": [
+      "robintorel@aol.com ", 
+      "http://www.acdems.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Alameda County", 
+    "phone": "(510) 326-3198", 
+    "state": "California"
+  }, 
+  {
+    "name": "Dianna Mitzner", 
+    "links": [
+      "kylescabin@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Alpine County", 
+    "phone": "(530) 694-9691", 
+    "state": "California"
+  }, 
+  {
+    "name": "Lynn Standard-Nightengale", 
+    "links": [
+      "lynneleigh19222@yahoo.com", 
+      "http://www.amadordemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Amador County", 
+    "phone": "209-217-6598", 
+    "state": "California"
+  }, 
+  {
+    "name": "Lupita Arim-Law", 
+    "links": [
+      "info@buttecountydems.org", 
+      "http://www.buttecountydems.org", 
+      "lupe.arim.law@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Butte County", 
+    "phone": "530-566-4708", 
+    "state": "California"
+  }, 
+  {
+    "name": "Laura Lowell", 
+    "links": [
+      "chair@calaverasdemocrats.org", 
+      "http://www.calaverasdemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Calaveras County", 
+    "phone": "209-736-7566", 
+    "state": "California"
+  }, 
+  {
+    "name": "Pamela DaGrossa", 
+    "links": [
+      "colusacountydemocrats@gmail.com", 
+      "https://colusacountydemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Colusa County", 
+    "phone": "530-619-0032", 
+    "state": "California"
+  }, 
+  {
+    "name": "Mar\u00c3\u00ada Alegr\u00c3\u00ada", 
+    "links": [
+      "mlalegria@comcast.net", 
+      "http://www.contracostadems.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Contra Costa County", 
+    "phone": "510-366-6511", 
+    "state": "California"
+  }, 
+  {
+    "name": "Kevin Hendrick", 
+    "links": [
+      "kevinjameshendrick@gmail.com", 
+      "http://www.delnortedemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Del Norte County", 
+    "phone": "707-464-2254", 
+    "state": "California"
+  }, 
+  {
+    "name": "Frank Porter (Interim Chair), Joshua Elder", 
+    "links": [
+      "fspsm520@gmail.com OR joshua.w.elder@gmail.com", 
+      "http://www.edcdems.org", 
+      "https://www.facebook.com/edcdems/"
+    ], 
+    "office": "County Chair", 
+    "county": "El Dorado County", 
+    "phone": "916-500-8511 ", 
+    "state": "California"
+  }, 
+  {
+    "name": "Michael Evans", 
+    "links": [
+      "evansm@usa.net", 
+      "http://www.fresnocountydemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Fresno County", 
+    "phone": "(704) 975-8874", 
+    "state": "California"
+  }, 
+  {
+    "name": "Sharon Phippen", 
+    "links": [
+      "sharonphippen@yahoo.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Glenn County", 
+    "phone": "(530) 865-0128 ", 
+    "state": "California"
+  }, 
+  {
+    "name": "Bob Service", 
+    "links": [
+      "rgspfs10@gmail.com", 
+      "http://www.humboldtdemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Humboldt County", 
+    "phone": "(707) 476-8198", 
+    "state": "California"
+  }, 
+  {
+    "name": "Annette Gonzalez-Buttner", 
+    "links": [
+      "annettebuttner@yahoo.com", 
+      "http://www.imperialdems.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Imperial County", 
+    "phone": "760-234-3656", 
+    "state": "California"
+  }, 
+  {
+    "name": "Nina Weisman", 
+    "links": [
+      "Inyodems@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Inyo County", 
+    "phone": "760-582-2199", 
+    "state": "California"
+  }, 
+  {
+    "name": "Ricky Perez", 
+    "links": [
+      "chair.kerndems@gmail.com", 
+      "http://www.kerndems.org", 
+      "https://www.facebook.com/KernDemocrats/"
+    ], 
+    "office": "County Chair", 
+    "county": "Kern County", 
+    "phone": "202-922-5777", 
+    "state": "California"
+  }, 
+  {
+    "name": "Claire Fitiausi", 
+    "links": [
+      "clairefitiausi@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Kings County", 
+    "phone": "559-362-5228", 
+    "state": "California"
+  }, 
+  {
+    "name": "Deb Bauman", 
+    "links": [
+      "db@baumann.vg", 
+      "http://www.lakecountydemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Lake County", 
+    "phone": "707-275-9234", 
+    "state": "California"
+  }, 
+  {
+    "name": "Jacob Hibbitts", 
+    "links": [
+      "chair.lassendems@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Lassen County", 
+    "phone": "530-251-3982", 
+    "state": "California"
+  }, 
+  {
+    "name": "Mark Gonzalez", 
+    "links": [
+      "info@lacdp.org", 
+      "http://www.lacdp.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Los Angeles County", 
+    "phone": "213-382-0063", 
+    "state": "California"
+  }, 
+  {
+    "name": "Susan Rowe", 
+    "links": [
+      "srowe@sti.net ", 
+      "http://www.maderacountydemocraticparty.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Madera County", 
+    "phone": "(559) 658-7343", 
+    "state": "California"
+  }, 
+  {
+    "name": "Paul Cohen", 
+    "links": [
+      "pmcohen@comcast.net ", 
+      "http://www.marindemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Marin County", 
+    "phone": "(415) 488-6501", 
+    "state": "California"
+  }, 
+  {
+    "name": "Jim Whelly", 
+    "links": [
+      "jwhelly@yahoo.com", 
+      "http://www.mariposademocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Mariposa County", 
+    "phone": "209-742-5419", 
+    "state": "California"
+  }, 
+  {
+    "county": "Mendocino County", 
+    "phone": "(707) 684-6360", 
+    "state": "California", 
+    "name": "Lynne Atkins", 
+    "links": [
+      "philyn@wildblue.net", 
+      "http://www.mendodems.org"
+    ], 
+    "office": "County Chair"
+  }, 
+  {
+    "name": "Jim Mastin", 
+    "links": [
+      "jwmastin@pacific.net", 
+      "http://www.mendodems.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Mendocino County", 
+    "phone": "707-621-0021", 
+    "state": "California"
+  }, 
+  {
+    "name": "Emily Haden", 
+    "links": [
+      "ehaden@hadenlaw.comcastbiz.net"
+    ], 
+    "office": "County Chair", 
+    "county": "Merced County", 
+    "phone": "209-676-1860", 
+    "state": "California"
+  }, 
+  {
+    "name": "Currently Vacant", 
+    "links": [
+      "billmonroecadem@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Modoc County", 
+    "phone": "Regional Director William Monroe  530-636-5952  ", 
+    "state": "California"
+  }, 
+  {
+    "name": "Lou Stewart", 
+    "links": [
+      "msloustewart@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Mono County", 
+    "phone": "818-679-8350", 
+    "state": "California"
+  }, 
+  {
+    "name": "Elena Loomis", 
+    "links": [
+      "ERLoomis@gmail.com", 
+      "http://www.montereycountydemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Monterey County", 
+    "phone": "831-241-8848", 
+    "state": "California"
+  }, 
+  {
+    "name": "G. Anthony Phillips", 
+    "links": [
+      "ncdcc15@gmail.com", 
+      "http://www.napadems.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Napa County", 
+    "phone": "(415) 309-1235", 
+    "state": "California"
+  }, 
+  {
+    "name": "Peter Minett", 
+    "links": [
+      "nevdempm@gmail.com ", 
+      "http://www.nevadacountydemocrats.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Nevada County", 
+    "phone": "530-613-5164 Chair or 530-802-5431", 
+    "state": "California"
+  }, 
+  {
+    "name": "Ada Briceno", 
+    "links": [
+      "chair@ocdemocrats.org ", 
+      "http://www.OCDemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Orange County", 
+    "phone": "(714) 634-DEMS(3367)", 
+    "state": "California"
+  }, 
+  {
+    "name": "Tomas Vera", 
+    "links": [
+      "dadkind@gmail.com", 
+      "http://www.placercountydemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Placer County", 
+    "phone": "530-401-8415", 
+    "state": "California"
+  }, 
+  {
+    "name": "Faith Strailey", 
+    "links": [
+      "fpstrailey@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Plumas County", 
+    "phone": "(530) 283-2604", 
+    "state": "California"
+  }, 
+  {
+    "name": "Tisa Rodriguez", 
+    "links": [
+      "chair.rcdp@gmail.com", 
+      "http://www.riversidecountydemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Riverside County", 
+    "phone": "TBD", 
+    "state": "California"
+  }, 
+  {
+    "name": "Terry Schanz", 
+    "links": [
+      "Terry@sacdems.org", 
+      "http://www.sacdems.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Sacramento County", 
+    "phone": "(916) 739-6001 or (916) 775-3477", 
+    "state": "California"
+  }, 
+  {
+    "name": "Leslie Austin", 
+    "links": [
+      "leslieaustin1114@gmail.com", 
+      "http://www.sanbenitodemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "San Benito County", 
+    "phone": "831-726-6242", 
+    "state": "California"
+  }, 
+  {
+    "name": "Chris Robles", 
+    "links": [
+      "chair@sbcdp.org", 
+      "http://www.sanbernardinodemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "San Bernardino County", 
+    "phone": "(909) 353-1DEM (1336)", 
+    "state": "California"
+  }, 
+  {
+    "name": "William Rodriguez-Kennedy", 
+    "links": [
+      "chair@sddemocrats.org", 
+      "http://www.sddemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "San Diego County", 
+    "phone": "619-709-0675", 
+    "state": "California"
+  }, 
+  {
+    "name": "David Campos", 
+    "links": [
+      "info@sfdemocrats.org", 
+      "http://www.sfdemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "San Francisco County", 
+    "phone": "415-314-1786", 
+    "state": "California"
+  }, 
+  {
+    "name": "Renee Elliott", 
+    "links": [
+      "chair.sjcdems@gmail.com", 
+      "http://www.sjcdems.org", 
+      "https://www.facebook.com/sjcdcc/", 
+      "relliott3@att.net"
+    ], 
+    "office": "County Chair", 
+    "county": "San Joaquin County", 
+    "phone": "209-649-7051", 
+    "state": "California"
+  }, 
+  {
+    "name": "Rosemary Wrenn", 
+    "links": [
+      "rosemary@slocdp.org", 
+      "http://www.slocdp.org"
+    ], 
+    "office": "County Chair", 
+    "county": "San Luis Obispo County", 
+    "phone": "805-709-8674", 
+    "state": "California"
+  }, 
+  {
+    "name": "Nicole Fernandez", 
+    "links": [
+      "chair@smcdems.org ", 
+      "http://www.smcdems.org"
+    ], 
+    "office": "County Chair", 
+    "county": "San Mateo County", 
+    "phone": "650-344-1714", 
+    "state": "California"
+  }, 
+  {
+    "name": "Gail Teton-Landis", 
+    "links": [
+      "info@sbdems.org", 
+      "http://www.sbdems.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Santa Barbara County", 
+    "phone": "805-448-2572", 
+    "state": "California"
+  }, 
+  {
+    "name": "Bill James", 
+    "links": [
+      "chair@sccdp.org", 
+      "http://www.sccdp.org", 
+      "https://www.facebook.com/sccdp"
+    ], 
+    "office": "County Chair", 
+    "county": "Santa Clara County", 
+    "phone": "408 831-1336", 
+    "state": "California"
+  }, 
+  {
+    "name": "Coco Raner-Walter", 
+    "links": [
+      "coco@finedesignsbycoco.com", 
+      "http://www.cruzdemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Santa Cruz County", 
+    "phone": "831-427-2516", 
+    "state": "California"
+  }, 
+  {
+    "name": "Diane Kinyon", 
+    "links": [
+      "dkanyon@msn.com", 
+      "http://democratsofshastacounty.org/"
+    ], 
+    "office": "County Chair", 
+    "county": "Shasta County", 
+    "phone": "530-262-5721 Shasta County Party Office", 
+    "state": "California"
+  }, 
+  {
+    "name": "Sylvia Lopez", 
+    "links": [
+      "sierrademocrats@att.net", 
+      "http://www.sierrademocrats.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Sierra County", 
+    "phone": "(530) 862-1475", 
+    "state": "California"
+  }, 
+  {
+    "name": "Carolyn Miller", 
+    "links": [
+      "cmiller1017@outlook.com", 
+      "http://www.siskiyoudemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Siskiyou County", 
+    "phone": "530-926-3646", 
+    "state": "California"
+  }, 
+  {
+    "name": "Brigette Hunley", 
+    "links": [
+      "brigette.hunley@gmail.com", 
+      "http://www.solanodemocrats.com/"
+    ], 
+    "office": "County Chair", 
+    "county": "Solano County", 
+    "phone": "(707) 712-3325", 
+    "state": "California"
+  }, 
+  {
+    "name": "Patricia \"Pat\" Sabo", 
+    "links": [
+      "p.sabo@att.net", 
+      "http://sonomademocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Sonoma County", 
+    "phone": "707-478-2047", 
+    "state": "California"
+  }, 
+  {
+    "name": "Jessica Self", 
+    "links": [
+      "jessica_self@live.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Stanislaus County", 
+    "phone": "805-501-8211", 
+    "state": "California"
+  }, 
+  {
+    "name": "Sharon Foote", 
+    "links": [
+      "mommafoote@msn.com", 
+      "http://www.suttercountydemocrats.org"
+    ], 
+    "office": "County Chair", 
+    "county": "Sutter County", 
+    "phone": "(530) 673-3961", 
+    "state": "California"
+  }, 
+  {
+    "name": "Michelle Proctor", 
+    "links": [
+      "tehamacountydemocrats@gmail.com", 
+      "mrproctor@yahoo.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Tehama County", 
+    "phone": "530-527-8583 ", 
+    "state": "California"
+  }, 
+  {
+    "name": "George Bates", 
+    "links": [
+      "georgebates@wildblue.net "
+    ], 
+    "office": "County Chair", 
+    "county": "Trinity County", 
+    "phone": "(530) 778-0239", 
+    "state": "California"
+  }, 
+  {
+    "name": "Ruth McKee", 
+    "links": [
+      "rmckee.1@netzero.net "
+    ], 
+    "office": "County Chair", 
+    "county": "Tulare County", 
+    "phone": "559-308-3823", 
+    "state": "California"
+  }, 
+  {
+    "name": "Sharon Marovich", 
+    "links": [
+      "grantservices@mlode.com "
+    ], 
+    "office": "County Chair", 
+    "county": "Tuolumne County", 
+    "phone": "(209) 532-1733", 
+    "state": "California"
+  }, 
+  {
+    "name": "Tiffany Lewis", 
+    "links": [
+      "lewis.tiffany.p@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Ventura County", 
+    "phone": "(805) 404-5631", 
+    "state": "California"
+  }, 
+  {
+    "name": "Bob Schelen", 
+    "links": [
+      "slobadbobs@aol.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Yolo County", 
+    "phone": "(916) 849-2110", 
+    "state": "California"
+  }, 
+  {
+    "name": "Dean Rewerts", 
+    "links": [
+      "deanr288@gmail.com"
+    ], 
+    "office": "County Chair", 
+    "county": "Yuba County", 
+    "phone": "530-906-6465", 
+    "state": "California"
+  }
+]
