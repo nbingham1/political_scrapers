@@ -158,6 +158,7 @@ class ParseCA:
 						if key in ["href", "src"]:
 							self.extractLinks(value, addr)
 						self.extractPhones(value, addr)
+						self.extractNames(value, addr)
 
 			stored = u''
 			for i, item in enumerate(elem.content):
@@ -186,6 +187,7 @@ class ParseCA:
 						if key in ["href", "src"]:
 							self.extractLinks(value, addr)
 						self.extractPhones(value, addr)
+						self.extractNames(value, addr)
 		elif isinstance(elem, unicode):
 			elem = elem.strip()
 			if elem:
@@ -193,13 +195,12 @@ class ParseCA:
 				self.extractPhones(elem, addr)
 				self.extractNames(elem, addr)
 
-	def findBest(self, best, addrs, data):
+	def findBest(self, best, addr, data):
 		for _, tests in data.items():
-			for addr in addrs:
-				for test in tests:
-					d = depth(addr, test)
-					if d > len(best):
-						best = addr[0:d]
+			for test in tests:
+				d = depth(addr, test)
+				if d > len(best):
+					best = addr[0:d]
 		return best
 
 	def buildEntry(self, entry, addr, start, end, data, key):
@@ -212,9 +213,9 @@ class ParseCA:
 
 			if found:
 				if key in entry:
-					entry[key].append(item)
+					entry[key].add(item)
 				else:
-					entry[key] = [item]
+					entry[key] = set([item])
 		return entry
 
 	def develop(self):
@@ -242,42 +243,56 @@ class ParseCA:
 									if end is None or test[maxdepth] < end:
 										end = test[maxdepth]
 				base = addr[0:maxdepth]
+				if start is None or end is None:
+					best = []
+					best = self.findBest(best, addr, self.emails)
+					best = self.findBest(best, addr, self.phones)
+					best = self.findBest(best, addr, self.links)
+					best = self.findBest(best, addr, self.fax)
+					if len(best) > len(base):
+						base = best
+						start = None
+						end = None
 
 				entry = self.buildEntry(entry, base, start, end, self.emails, 'email')
 				entry = self.buildEntry(entry, base, start, end, self.phones, 'phone')
 				entry = self.buildEntry(entry, base, start, end, self.links, 'link')
 				entry = self.buildEntry(entry, base, start, end, self.fax, 'fax')
 
-			#best = []
-			#best = self.findBest(best, addrs, self.emails)
-			#best = self.findBest(best, addrs, self.phones)
-			#best = self.findBest(best, addrs, self.links)
-			#best = self.findBest(best, addrs, self.fax)
-			
 			if name in self.results:
+				print entry
 				old = self.results[name]
+				print old
 				if 'email' in old and 'email' in entry:
-					old['email'] = sorted(list(set(old['email'] + entry['email'])))
-				elif 'email' in entry:
-					old['email'] = entry['email']				
+					entry['email'] |= set(old['email'])
+				elif 'email' in old:
+					entry['email'] = set(old['email'])				
 
 				if 'phone' in old and 'phone' in entry:
-					old['phone'] = sorted(list(set(old['phone'] + entry['phone'])))
-				elif 'phone' in entry:
-					old['phone'] = entry
+					entry['phone'] |= set(old['phone'])
+				elif 'phone' in old:
+					entry['phone'] = set(old['phone'])
 
 				if 'fax' in old and 'fax' in entry:
-					old['fax'] = sorted(list(set(old['fax'] + entry['fax'])))
-				elif 'fax' in entry:
-					old['fax'] = entry['fax']
+					entry['fax'] |= set(old['fax'])
+				elif 'fax' in old:
+					entry['fax'] = set(old['fax'])
 
 				if 'link' in old and 'link' in entry:
-					old['link'] = sorted(list(set(old['link'] + entry['link'])))
-				elif 'link' in entry:
-					old['link'] = entry['link']
-				self.results[name] = old
-			else:
-				self.results[name] = entry
+					entry['link'] |= set(old['link'])
+				elif 'link' in old:
+					entry['link'] = set(old['link'])
+
+			if 'email' in entry:			
+				entry['email'] = list(entry['email'])
+			if 'phone' in entry:
+				entry['phone'] = list(entry['phone'])
+			if 'fax' in entry:
+				entry['fax'] = list(entry['fax'])
+			if 'link' in entry:
+				entry['link'] = list(entry['link'])
+
+			self.results[name] = entry
 		self.emails = {}
 		self.phones = {}
 		self.links = {}
@@ -293,11 +308,11 @@ class ParseCA:
 
 parser = ParseCA()
 
-#parser.scrape("http://www.cadem.org/our-party/leaders")
-#parser.scrape("http://www.cadem.org/our-party/elected-officials")
-#parser.scrape("http://www.cadem.org/our-party/our-county-committees")
+parser.scrape("http://www.cadem.org/our-party/leaders")
+parser.scrape("http://www.cadem.org/our-party/elected-officials")
+parser.scrape("http://www.cadem.org/our-party/our-county-committees")
 #parser.scrape("http://www.cadem.org/our-party/dnc-members")
-parser.scrape("https://nydems.org/our-party/")
+#parser.scrape("https://nydems.org/our-party/")
 
 
 print json.dumps(parser.results, indent=2)
