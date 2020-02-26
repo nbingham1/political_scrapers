@@ -23,25 +23,17 @@ def depth(addr1, addr2):
 
 word_names = set(["rusty", "hicks", "abbey", "albert", "allie", "amber", "andrew", "angel", "april", "april", "art", "august", "aurora", "autumn", "baldric", "barb", "bay", "bill", "bob", "booth", "brad", "brandy", "brook", "buck", "candy", "carol", "carole", "cat", "chad", "charity", "chase", "chip", "christian", "chuck", "clay", "cliff", "colt", "cricket", "crystal", "daisy", "dale", "dale", "dash", "dawn", "dean", "derrick", "destiny", "dick", "dixie", "dolly", "don", "dori", "dory", "dot", "earl", "ebony", "elle", "eve", "faith", "fanny", "faye", "fern", "flora", "frank", "gale", "gay", "gene", "ginger", "glen", "gore", "grace", "grant", "guy", "hale", "harmony", "harry", "hazel", "heath", "heather", "heaven", "henry", "holly", "hope", "hunter", "iris", "ivy", "ivy", "jack", "jade", "jean", "jenny", "jerry", "jersey", "jewel", "jimmy", "john", "josh", "joy", "june", "kitty", "lacy", "lance", "laurel", "lee", "lily", "lily", "marina", "mark", "mark", "marsh", "mason", "matt", "max", "maxim", "may", "may", "mcdonald", "melody", "mike", "miles", "milo", "misty", "nick", "norm", "olive", "opal", "oral", "pam", "pansy", "pat", "patience", "patsy", "patty", "pearl", "peg", "penny", "pepper", "peter", "petunia", "pierce", "poppy", "queen", "ralph", "randy", "ransom", "ray", "red", "reed", "rich", "rick", "river", "rob", "rock", "roger", "rose", "rowan", "ruth", "sally", "sandy", "scot", "shad", "shepherd", "skip", "sky", "sly", "stone", "sue", "summer", "summer", "tab", "tad", "tanner", "tara", "tiffany", "tom", "tony", "tucker", "violet", "wade", "ward", "warren", "will", "winter", "wren"])
 
-word_places = set(["county", "state", "city", "regional", "street"])
+word_places = set(["county", "state", "city", "regional", "street", "office", "blvd"])
 
 class ParseCA:
 	def __init__(self):
 		self.opener = urllib2.build_opener()
 		self.opener.addheaders = [
-			("Host", "www.cadem.org"),
 			("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0"),
 			("Accept", "text/pain"),
 			("Accept-Language", "en-US,en;q=0.5"),
 			("Accept-Encoding", "gzip, deflate, br")
 		]
-		self.api = {
-			"elected": 'http://www.cadem.org/our-party/elected-officials',
-			"leaders": 'http://www.cadem.org/our-party/leaders',
-			"county" : 'http://www.cadem.org/our-party/our-county-committees',
-			"committee": 'http://www.cadem.org/our-party/standing-committees',
-			"dnc": 'http://www.cadem.org/our-party/dnc-members'
-		}
 
 		self.names = {}
 		self.phones = {}
@@ -62,15 +54,24 @@ class ParseCA:
 		self.eng.add("mateo")
 		self.eng.add("los")
 		self.eng.add("angeles")
-
+		self.eng.add("dc")
+		self.eng.add("washington")
+		self.eng.add("fresno")
+		self.eng.add("ca")
+		
 		self.phone_codes = [("ABC", 2), ("DEF", 3), ("GHI", 4), ("JKL", 5), ("MNO", 6), ("PQRS", 7), ("TUV", 8), ("WXYZ", 9)]
+		self.results = {}
+		self.urls = []
 
 	def getURL(self, url, cache):
 		if not os.path.isfile(cache + ".html"):
 			with open(cache + ".html", "w") as fptr:
 				response = self.opener.open(url)
-				data = io.BytesIO(response.read())
-				decoded = gzip.GzipFile(fileobj=data).read().decode("latin1").encode('utf8')
+				data = response.read()
+				try:
+					decoded = gzip.GzipFile(fileobj=io.BytesIO(data)).read().decode("latin1").encode('utf8')
+				except:
+					decoded = data.decode("latin1").encode('utf8')
 				print >>fptr, decoded
 		parser = Parser()
 		with open(cache + ".html", 'r') as fptr:
@@ -141,14 +142,13 @@ class ParseCA:
 						break
 
 			if isName:
-				print obj
 				if obj in self.names:
 					self.names[obj].append(addr)
 				else:
 					self.names[obj] = [addr]
 				
 
-	def scrape(self, elem, addr=[]):
+	def traverse(self, elem, addr=[]):
 		if isinstance(elem, Tag) and not isinstance(elem, Script):
 			for key, value in elem.attrs.items():
 				if value:
@@ -170,7 +170,7 @@ class ParseCA:
 						self.extractPhones(stored, addr)
 						self.extractNames(stored, addr)
 						stored = u''
-					self.scrape(item, addr + [i])
+					self.traverse(item, addr + [i])
 			stored = stored.strip().replace(u'\xa0', u' ')
 			if stored:
 				self.extractEmails(stored, addr)
@@ -202,11 +202,11 @@ class ParseCA:
 						best = addr[0:d]
 		return best
 
-	def buildEntry(self, entry, addr, data, key):
+	def buildEntry(self, entry, addr, start, end, data, key):
 		for item, tests in data.items():
 			found = False
 			for test in tests:
-				if test[0:len(addr)] == addr:
+				if test[0:len(addr)] == addr and len(test) > len(addr) and (start is None or test[len(addr)] >= start) and (end is None or test[len(addr)] < end):
 					found = True
 					break
 
@@ -218,36 +218,89 @@ class ParseCA:
 		return entry
 
 	def develop(self):
-		entries = []
 		for name, addrs in self.names.items():
-			#bounds = []
-			#for name1, addrs in self.names.items():
-			#	if name != name1:
-					
-
 			entry = {
-				'name': name,
 			}
-
-			best = []
-			best = self.findBest(best, addrs, self.emails)
-			best = self.findBest(best, addrs, self.phones)
-			best = self.findBest(best, addrs, self.links)
-			best = self.findBest(best, addrs, self.fax)
 			
-			entry = self.buildEntry(entry, best, self.emails, 'email')
-			entry = self.buildEntry(entry, best, self.phones, 'phone')
-			entry = self.buildEntry(entry, best, self.links, 'link')
-			entry = self.buildEntry(entry, best, self.fax, 'fax')
-			entries.append(entry)	
-		return entries
+			for addr in addrs:
+				maxdepth = 0
+				start = None
+				end = None
+				for name1, tests in self.names.items():
+					if name != name1:
+						for test in tests:
+							d = depth(addr, test)
+							if d > maxdepth:
+								maxdepth = d
+								start = None
+								end = None
+							if d >= maxdepth:
+								if test[maxdepth] < addr[maxdepth]:
+									if start is None or test[maxdepth]+1 > start:
+										start = test[maxdepth]+1
+								elif test[maxdepth] > addr[maxdepth]:
+									if end is None or test[maxdepth] < end:
+										end = test[maxdepth]
+				base = addr[0:maxdepth]
+
+				entry = self.buildEntry(entry, base, start, end, self.emails, 'email')
+				entry = self.buildEntry(entry, base, start, end, self.phones, 'phone')
+				entry = self.buildEntry(entry, base, start, end, self.links, 'link')
+				entry = self.buildEntry(entry, base, start, end, self.fax, 'fax')
+
+			#best = []
+			#best = self.findBest(best, addrs, self.emails)
+			#best = self.findBest(best, addrs, self.phones)
+			#best = self.findBest(best, addrs, self.links)
+			#best = self.findBest(best, addrs, self.fax)
+			
+			if name in self.results:
+				old = self.results[name]
+				if 'email' in old and 'email' in entry:
+					old['email'] = sorted(list(set(old['email'] + entry['email'])))
+				elif 'email' in entry:
+					old['email'] = entry['email']				
+
+				if 'phone' in old and 'phone' in entry:
+					old['phone'] = sorted(list(set(old['phone'] + entry['phone'])))
+				elif 'phone' in entry:
+					old['phone'] = entry
+
+				if 'fax' in old and 'fax' in entry:
+					old['fax'] = sorted(list(set(old['fax'] + entry['fax'])))
+				elif 'fax' in entry:
+					old['fax'] = entry['fax']
+
+				if 'link' in old and 'link' in entry:
+					old['link'] = sorted(list(set(old['link'] + entry['link'])))
+				elif 'link' in entry:
+					old['link'] = entry['link']
+				self.results[name] = old
+			else:
+				self.results[name] = entry
+		self.emails = {}
+		self.phones = {}
+		self.links = {}
+		self.names = {}
+		self.office = {}
+		self.address = {}
+
+	def scrape(self, url):
+		uid = str(len(self.urls))
+		self.traverse(self.getURL(url, uid).syntax)
+		self.urls.append(url)
+		self.develop()
 
 parser = ParseCA()
-parser.scrape(parser.getURL("http://www.cadem.org/our-party/leaders", "leaders").syntax, [0])
-parser.scrape(parser.getURL("http://www.cadem.org/our-party/elected-officials", "elected").syntax, [1])
-parser.scrape(parser.getURL("http://www.cadem.org/our-party/our-county-committees", "county").syntax, [2])
-#parser.scrape(parser.getURL("http://www.cadem.org/our-party/dnc-members", "dnc").syntax, [2])
-print json.dumps(parser.develop(), indent=2)
+
+#parser.scrape("http://www.cadem.org/our-party/leaders")
+#parser.scrape("http://www.cadem.org/our-party/elected-officials")
+#parser.scrape("http://www.cadem.org/our-party/our-county-committees")
+#parser.scrape("http://www.cadem.org/our-party/dnc-members")
+parser.scrape("https://nydems.org/our-party/")
+
+
+print json.dumps(parser.results, indent=2)
 #print json.dumps(parser.emails.keys(), indent=2)
 #print json.dumps(parser.phones.keys(), indent=2)
 #print json.dumps(parser.names.keys(), indent=2)
