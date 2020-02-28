@@ -11,6 +11,7 @@ import io
 import unicodedata
 import re
 import enchant
+from bs4 import UnicodeDammit
 
 from pyhtml.html import *
 from pyhtml.parse import *
@@ -27,9 +28,9 @@ def depth(addr1, addr2):
 			return i
 	return min(len(addr1), len(addr2))
 
-word_names = set(["rusty", "hicks", "abbey", "albert", "allie", "amber", "andrew", "angel", "april", "art", "august", "aurora", "autumn", "baldric", "barb", "bay", "bill", "bob", "booth", "brad", "brandy", "brook", "buck", "candy", "carol", "carole", "cat", "chad", "charity", "chase", "chip", "christian", "chuck", "clay", "cliff", "colt", "cricket", "crystal", "daisy", "dale", "dale", "dash", "dawn", "dean", "derrick", "destiny", "dick", "dixie", "dolly", "don", "dori", "dory", "dot", "earl", "ebony", "elle", "eve", "faith", "fanny", "faye", "fern", "flora", "frank", "gale", "gay", "gene", "ginger", "glen", "gore", "grace", "grant", "guy", "hale", "harmony", "harry", "hazel", "heath", "heather", "heaven", "henry", "holly", "hope", "hunter", "iris", "ivy", "ivy", "jack", "jade", "jean", "jenny", "jerry", "jersey", "jewel", "jimmy", "john", "josh", "joy", "june", "kitty", "lacy", "lance", "laurel", "lee", "lily", "lily", "marina", "mark", "mark", "marsh", "mason", "matt", "max", "maxim", "may", "may", "mcdonald", "melody", "mike", "miles", "milo", "misty", "nick", "norm", "olive", "opal", "oral", "pam", "pansy", "pat", "patience", "patsy", "patty", "pearl", "peg", "penny", "pepper", "peter", "petunia", "pierce", "poppy", "queen", "ralph", "randy", "ransom", "ray", "red", "reed", "rich", "rick", "river", "rob", "rock", "roger", "rose", "rowan", "ruth", "sally", "sandy", "scot", "shad", "shepherd", "skip", "sky", "sly", "stone", "sue", "summer", "summer", "tab", "tad", "tanner", "tara", "tiffany", "tom", "tony", "tucker", "violet", "wade", "ward", "warren", "will", "winter", "wren"])
+name_incl = set(["rusty", "hicks", "abbey", "albert", "allie", "amber", "andrew", "angel", "april", "art", "august", "aurora", "autumn", "baldric", "barb", "bay", "bill", "bob", "booth", "brad", "brandy", "brook", "buck", "candy", "carol", "carole", "cat", "chad", "charity", "chase", "chip", "christian", "chuck", "clay", "cliff", "colt", "cricket", "crystal", "daisy", "dale", "dale", "dash", "dawn", "dean", "derrick", "destiny", "dick", "dixie", "dolly", "don", "dori", "dory", "dot", "earl", "ebony", "elle", "eve", "faith", "fanny", "faye", "fern", "flora", "frank", "gale", "gay", "gene", "ginger", "glen", "gore", "grace", "grant", "guy", "hale", "harmony", "harry", "hazel", "heath", "heather", "heaven", "henry", "holly", "hope", "hunter", "iris", "ivy", "ivy", "jack", "jade", "jean", "jenny", "jerry", "jersey", "jewel", "jimmy", "john", "josh", "joy", "june", "kitty", "lacy", "lance", "laurel", "lee", "lily", "lily", "marina", "mark", "mark", "marsh", "mason", "matt", "max", "maxim", "may", "may", "mcdonald", "melody", "mike", "miles", "milo", "misty", "nick", "norm", "olive", "opal", "oral", "pam", "pansy", "pat", "patience", "patsy", "patty", "pearl", "peg", "penny", "pepper", "peter", "petunia", "pierce", "poppy", "queen", "ralph", "randy", "ransom", "ray", "red", "reed", "rich", "rick", "river", "rob", "rock", "roger", "rose", "rowan", "ruth", "sally", "sandy", "scot", "shad", "shepherd", "skip", "sky", "sly", "stone", "sue", "summer", "summer", "tab", "tad", "tanner", "tara", "tiffany", "tom", "tony", "tucker", "violet", "wade", "ward", "warren", "will", "winter", "wren", "smith", "king", "jr", "robin", "standard", "hall", "curry", "sawyer", "porter", "elder", "service", "early", "shay", "waters", "jay", "peoples", "stokes", "hogan", "los", "iv", "iii", "law", "terry", "rosemary", "coco", "miller", "self", "bates", "young", "gray", "cooper", "ken", "hill", "caballero", "pan", "wiener", "peters", "bass", "ted", "lieu", "cox", "harder", "ma", "wicks", "quirk", "ash", "low", "ed", "bloom", "nelson", "butler", "rice", "bacon", "baker", "bays", "bishop", "brown", "bush", "carter", "crane", "timothy", "dormer", "duke", "fall", "ford", "forte", "freer", "garland", "green", "grove", "hanks", "hart", "hickey", "hood", "margarita", "kirsch", "knight", "long", "maria", "mealy", "miner", "warden", "mills", "sherry", "provost", "molly", "ridge", "rigger", "hector", "romeo", "sharp", "shuffler", "sierra", "silver", "sold", "st", "stage", "stark", "street", "tong", "van", "vita", "weaver", "woods", "bears", "dove", "hunt", "ting"])
 
-word_places = set(["regional", "website", "office", "camp", "employment"])
+name_excl = set(["regional", "website", "office", "camp", "employment", "ceo", "tlc", "tempore", "mr", "ms", "dnc"])
 
 html_attrs = set(["id", "class", "style", "lang", "xml:lang", "coords", "shape", "href", "src", "width", "height", "rel"])
 html_tags = set(["svg", "path", "style", "script", "link", "form", "input"])
@@ -73,13 +74,13 @@ class ParseCA:
 				response = self.opener.open(url)
 				data = response.read()
 				try:
-					decoded = gzip.GzipFile(fileobj=io.BytesIO(data)).read().decode("latin1").encode('utf8')
+					decoded = UnicodeDammit(gzip.GzipFile(fileobj=io.BytesIO(data)).read(), ["windows-1252"], smart_quotes_to="html").unicode_markup.encode('utf8')
 				except:
-					decoded = data.decode("latin1").encode('utf8')
+					decoded = UnicodeDammit(data, ["windows-1252"], smart_quotes_to="html").unicode_markup.encode('utf8')
 				print >>fptr, decoded
 		parser = Parser()
 		with open(cache + ".html", 'r') as fptr:
-			data = fptr.read().decode('utf8').replace("%20", "").replace(u"\xe2\x80\x9c", u"\"").replace(u"\xe2\x80\x9d", u"\"")
+			data = fptr.read().decode('utf8').replace("%20", "").replace(u"\xe2\x80\x9c", u"\"").replace(u"\xe2\x80\x9d", u"\"").replace(u"\xc3\xb3", u"\u00f3").replace(u"\xc3\xad", u"\u00ed").replace(u"\\xe2\\u20ac\\u2122", u"\'").replace(u"\\xe2\\u20ac\\u0153", u"\"").replace(u"\\xe2\\u20ac", u"\"").replace(u"\\xe2\\u20ac\\u201c", " - ").replace(u"\xc3", u"\u00E9")
 			parser.feed(data)
 		return parser
 
@@ -110,7 +111,7 @@ class ParseCA:
 			return elem
 
 	def extractEmails(self, elem, addr):
-		objs = re.finditer(r'[A-Za-z.0-9]+@[A-Za-z]+.[A-Za-z]+', elem)
+		objs = re.finditer(r'[-_A-Za-z\.0-9]+@[-_A-Za-z0-9\.]+', elem)
 		rng = []
 		start = 0
 		for obj in objs:
@@ -156,46 +157,124 @@ class ParseCA:
 		return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
 
 	def extractNames(self, elem, addr):
-		r_first = ur'[A-Z\u00C0-\u00D6\u00D8-\u00DE](?:[a-z\u00DF-\u00f6\u00f8-\u00ff]+|[A-Z\u00C0-\u00D6\u00D8-\u00DE])'
-		r_last = ur'[A-Z\u00C0-\u00D6\u00D8-\u00DE](?:[a-z\u00DF-\u00f6\u00f8-\u00ff\'][A-Z\u00C0-\u00D6\u00D8-\u00DEa-z\u00DF-\u00f6\u00f8-\u00ff])?[a-z\u00DF-\u00f6\u00f8-\u00ff]+'
-		r_hlast = r_last + ur'(?:- *' + r_last + ur')*'
-		r_abbr = ur'[A-Z\u00C0-\u00D6\u00D8-\u00DE][a-z\u00DF-\u00f6\u00f8-\u00ff]*\.'
-		r_lfm = r_hlast + ur', *(?:' + r_abbr + ur' )?' + r_first + ur'(?: (?:' + r_hlast + ur'|' + r_abbr + ur'))*'
-		r_fml = ur'(?:' + r_abbr + ur' )?' + r_first + ur'(?: (?:' + r_hlast + ur'|' + r_abbr + ur'))+'
-		objs = re.finditer(ur'(?:' + r_lfm + ur'|' + r_fml + ur')', elem, flags=re.UNICODE)
+		r_name = ur'[A-Z\u00C0-\u00D6\u00D8-\u00DE][A-Z\u00C0-\u00D6\u00D8-\u00DEa-z\u00DF-\u00f6\u00f8-\u00ff\']*\.?'
+		
+		objs = re.finditer(r_name, elem, flags=re.UNICODE)
 		rng = []
 		start = 0
+		nameStart = None
+		nameEnd = 0
+		nextStart = None
+		nextEnd = 0
+
+		words = []
+		inDict = []
+		parsedNames = []
+
+		name = u""
+		last = u""
+		count = 0
+		
+		nextName = u""
+		nextCount = 0
 		for obj in objs:
-			name = obj.group(0).replace("- ", "-")
-			if not name:
+			word = obj.group(0)
+			words.append(word)
+			if not word:
 				print "Error: name matches empty string"
-			if "," in name:
-				name = name.split(",")
-				name = " ".join([word.strip() for word in reversed(name)])
-				name = name.replace("  ", " ")
+			#if "," in name:
+			#	name = name.split(",")
+			#	name = " ".join([word.strip() for word in reversed(name)])
+			#	name = name.replace("  ", " ")
 
-			words = name.split(" ")
-			isName = False
-			if len(words) > 1:
-				for word in words:
-					word = word.lower()
-					if word in word_names or not self.eng.check(word):
-						isName = True
-					if word in word_places:
-						isName = False
-						break
-
-			if isName:
-				if name in self.names:
-					self.names[name].append(addr)
+			lword = word.lower()
+			if lword[-1] == '.':
+				lword = lword[0:-1]
+			end = False
+			if lword not in name_excl and (len(lword) == 1 or lword in name_incl or not self.eng.check(lword)):
+				sep = elem[nameEnd:obj.start(0)]
+				if count == 0:
+					name += word
+					count += 1
+					nameStart = obj.start(0)
+				elif name and name[-1] != '.' and re.match(ur'^ *- *$', sep):
+					name += '-' + word
+				elif re.match(ur'^ *, *$', sep):
+					if count == 1:
+						last = name
+						name = word
+						count += 1
+					elif word[-1] == '.' or re.match(ur'^[IVXM]+$', word):
+						if last:
+							name += " " + last
+							last = ""
+						name += " " + word
+						count += 1
+					else:
+						end = True
+				elif re.match(ur'^ +$', sep):
+					name += " " + word
+					count += 1
 				else:
-					self.names[name] = [addr]
-				rng.append((start, obj.start(0)))
-				start = obj.end(0)
-		return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
+					nextStart = obj.start(0)
+					nextEnd = obj.end(0)
+					nextName = word
+					nextCount = 1
+					end = True
+			else:
+				inDict.append(lword)
+				end = True
+
+			if end:
+				if count >= 2:
+					if last:
+						name += " " + last
+					parsedNames.append(name)
+					if name in self.names:
+						self.names[name].append(addr)
+					else:
+						self.names[name] = [addr]
+
+					rng.append((start, nameStart))
+					start = nameEnd
+
+				name = nextName
+				last = u""
+				count = nextCount
+				nameStart = nextStart
+				nameEnd = nextEnd
+				nextName = u""
+				nextCount = 0
+				nextStart = None
+				nextEnd = 0
+			
+			if nameStart is not None:
+				nameEnd = obj.end(0)
+
+		if count >= 2:
+			if last:
+				name += " " + last
+			parsedNames.append(name)
+			if name in self.names:
+				self.names[name].append(addr)
+			else:
+				self.names[name] = [addr]
+			
+			rng.append((start, nameStart))
+			start = nameEnd
+
+		result = '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
+		if "{}" not in result:
+			print "input: " + repr(elem)
+			print "words: " + repr(words)
+			print "indict: " + repr(inDict)
+			print "parsed: " + repr(result)
+			print "names: " + repr(parsedNames)
+			print ""
+		return result
 
 	def extractTitles(self, elem, addr):
-		r_pos = ur'Chair|Vice|Treasurer|Secretary|Director|Administrator|Fellow|Congressman|Congresswoman|Auditor|Leader|Senator|Representative|Member|Governer|Secretary|Controller|General|Attorney|Commissioner|Superindendent|Officer|President|Governor|Staff|Assemblymember'
+		r_pos = ur'Chair|Vice|Treasurer|Secretary|Director|Administrator|Fellow|Congressman|Congresswoman|Auditor|Leader|Senator|Representative|Member|Governer|Secretary|Controller|General|Attorney|Commissioner|Superindendent|Officer|President|Governor|Staff|Assemblymember|Rep\.|Sen\.|Speaker|Comptroller|Rev\.|Reverend|Mayor'
 
 		r_title = ur'(?:(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+) *[ -]? *)*(?=' + r_pos + ur')(?:' + r_pos + ur')(?: (?:of|for|in)(?: *[ -]? *(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+))+)?'
 		objs = re.finditer(r_title, elem, flags=re.UNICODE)
@@ -235,12 +314,12 @@ class ParseCA:
 		return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
 
 	def extractCity(self, elem, addr):
-		r_zip = r'\b[0-9]{5}(?:-[0-9]{4})?\b'
+		r_zip = r'[0-9]{5}(?:-[0-9]{4})?'
 		r_city = r'(?:[A-Z][a-z.-]+ ?)+'
 		r_state = r'Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming'
-		r_stateabbr = r'AL|AK|AS|AZ|AR|CA|CO|CT|DE|D\.?C\.?|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY'
+		r_stateabbr = r'AL\.?|AK\.?|AS\.?|AZ\.?|AR\.?|CA\.?|CO\.?|CT\.?|DE\.?|D\.?C\.?|FM\.?|FL\.?|GA\.?|GU\.?|HI\.?|ID\.?|IL\.?|IN\.?|IA\.?|KS\.?|KY\.?|LA\.?|ME\.?|MH\.?|MD\.?|MA\.?|MI\.?|MN\.?|MS\.?|MO\.?|MT\.?|NE\.?|NV\.?|NH\.?|NJ\.?|NM\.?|NY\.?|NC\.?|ND\.?|MP\.?|OH\.?|OK\.?|OR\.?|PW\.?|PA\.?|PR\.?|RI\.?|SC\.?|SD\.?|TN\.?|TX\.?|UT\.?|VT\.?|VI\.?|VA\.?|WA\.?|WV\.?|WI\.?|WY\.?'
 		
-		r_citystatezip = r_city + r', +(?:' + r_state + r'|' + r_stateabbr + r')(?: +' + r_zip + r')?'
+		r_citystatezip = r_city + r', +(?:' + r_state + r'|' + r_stateabbr + r')(?:(?:, *| +)' + r_zip + r')?'
 
 		objs = re.finditer(r_citystatezip, elem)
 		rng = []
@@ -255,7 +334,7 @@ class ParseCA:
 		return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
 	
 	def extractStreet(self, elem, addr):
-		r_street = r'(?:[0-9]+[A-Za-z]*|[A-Z][a-z]*) (?:[A-Z0-9][a-z0-9]*(?:-[A-Z0-9][a-z0-9]*)?\.? )+(?=Avenue|Lane|Road|Boulevard|Drive|Street|Mall|Plaza|Ave|Dr|Rd|Blvd|Ln|St)(?:Avenue|Lane|Road|Boulevard|Drive|Street|Mall|Plaza|Ave|Dr|Rd|Blvd|Ln|St)\.?'
+		r_street = r'(?:[0-9]+[A-Za-z]*|[A-Z][a-z]*) (?:[A-Z0-9][A-Za-z0-9]*(?:-[A-Z0-9][a-z0-9]*)?\.? )+(?=Avenue|Lane|Road|Boulevard|Drive|Street|Mall|Plaza|Ave|Dr|Rd|Blvd|Ln|St|Hwy|Highway|Park|Route|Rt|Court|Ct|SR)(?:Avenue|Lane|Road|Boulevard|Drive|Street|Mall|Plaza|Ave|Dr|Rd|Blvd|Ln|St|Hwy\.? *[0-9]+|Highway *[0-9]+|Park|Route *[0-9]+|Rt\.? *[0-9]+|Court|Ct|SR\.? *[0-9]+)\.?'
 		r_po = r'P\.?O\.? Box [0-9]+'
 		r_streetbox = r'(?:' + r_po + '|' + r_street + ')'
 	
@@ -299,7 +378,8 @@ class ParseCA:
 					value = self.extractCity(value, addr)
 					value = self.extractTitles(value, addr)
 					#value = self.extractOrgs(value, addr)
-					value = self.extractNames(value, addr)
+					if tag != 'a':
+						value = self.extractNames(value, addr)
 					#if value.replace("{}", "").replace(" ", ""):
 					#	print (key, value)
 				elif key in ["href", "src"]:
@@ -314,10 +394,11 @@ class ParseCA:
 			elem = self.extractApt(elem, addr)
 			elem = self.extractCity(elem, addr)
 			elem = self.extractTitles(elem, addr)
+
 			#elem = self.extractOrgs(elem, addr)
 			elem = self.extractNames(elem, addr)
-			if elem.replace("{}", "").replace(" ", ""):
-				print repr(elem)
+			#if elem.replace("{}", "").replace(" ", ""):
+			#	print repr(elem)
 
 
 	def traverse(self, elem, addr=[]):
