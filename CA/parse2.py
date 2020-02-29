@@ -28,9 +28,9 @@ def depth(addr1, addr2):
 			return i
 	return min(len(addr1), len(addr2))
 
-name_incl = set(["rusty", "hicks", "abbey", "albert", "allie", "amber", "andrew", "angel", "april", "art", "august", "aurora", "autumn", "baldric", "barb", "bay", "bill", "bob", "booth", "brad", "brandy", "brook", "buck", "candy", "carol", "carole", "cat", "chad", "charity", "chase", "chip", "christian", "chuck", "clay", "cliff", "colt", "cricket", "crystal", "daisy", "dale", "dale", "dash", "dawn", "dean", "derrick", "destiny", "dick", "dixie", "dolly", "don", "dori", "dory", "dot", "earl", "ebony", "elle", "eve", "faith", "fanny", "faye", "fern", "flora", "frank", "gale", "gay", "gene", "ginger", "glen", "gore", "grace", "grant", "guy", "hale", "harmony", "harry", "hazel", "heath", "heather", "heaven", "henry", "holly", "hope", "hunter", "iris", "ivy", "ivy", "jack", "jade", "jean", "jenny", "jerry", "jersey", "jewel", "jimmy", "john", "josh", "joy", "june", "kitty", "lacy", "lance", "laurel", "lee", "lily", "lily", "marina", "mark", "mark", "marsh", "mason", "matt", "max", "maxim", "may", "may", "mcdonald", "melody", "mike", "miles", "milo", "misty", "nick", "norm", "olive", "opal", "oral", "pam", "pansy", "pat", "patience", "patsy", "patty", "pearl", "peg", "penny", "pepper", "peter", "petunia", "pierce", "poppy", "queen", "ralph", "randy", "ransom", "ray", "red", "reed", "rich", "rick", "river", "rob", "rock", "roger", "rose", "rowan", "ruth", "sally", "sandy", "scot", "shad", "shepherd", "skip", "sky", "sly", "stone", "sue", "summer", "summer", "tab", "tad", "tanner", "tara", "tiffany", "tom", "tony", "tucker", "violet", "wade", "ward", "warren", "will", "winter", "wren", "smith", "king", "jr", "robin", "standard", "hall", "curry", "sawyer", "porter", "elder", "service", "early", "shay", "waters", "jay", "peoples", "stokes", "hogan", "los", "iv", "iii", "law", "terry", "rosemary", "coco", "miller", "self", "bates", "young", "gray", "cooper", "ken", "hill", "caballero", "pan", "wiener", "peters", "bass", "ted", "lieu", "cox", "harder", "ma", "wicks", "quirk", "ash", "low", "ed", "bloom", "nelson", "butler", "rice", "bacon", "baker", "bays", "bishop", "brown", "bush", "carter", "crane", "timothy", "dormer", "duke", "fall", "ford", "forte", "freer", "garland", "green", "grove", "hanks", "hart", "hickey", "hood", "margarita", "kirsch", "knight", "long", "maria", "mealy", "miner", "warden", "mills", "sherry", "provost", "molly", "ridge", "rigger", "hector", "romeo", "sharp", "shuffler", "sierra", "silver", "sold", "st", "stage", "stark", "street", "tong", "van", "vita", "weaver", "woods", "bears", "dove", "hunt", "ting"])
+name_incl = set(["rusty", "hicks", "abbey", "albert", "allie", "amber", "andrew", "angel", "april", "art", "august", "aurora", "autumn", "baldric", "barb", "bay", "bill", "bob", "booth", "brad", "brandy", "brook", "buck", "candy", "carol", "carole", "cat", "chad", "charity", "chase", "chip", "christian", "chuck", "clay", "cliff", "colt", "cricket", "crystal", "daisy", "dale", "dale", "dash", "dawn", "dean", "derrick", "destiny", "dick", "dixie", "dolly", "don", "dori", "dory", "dot", "earl", "ebony", "elle", "eve", "faith", "fanny", "faye", "fern", "flora", "frank", "gale", "gay", "gene", "ginger", "glen", "gore", "grace", "grant", "guy", "hale", "harmony", "harry", "hazel", "heath", "heather", "heaven", "henry", "holly", "hope", "hunter", "iris", "ivy", "ivy", "jack", "jade", "jean", "jenny", "jerry", "jersey", "jewel", "jimmy", "john", "josh", "joy", "june", "kitty", "lacy", "lance", "laurel", "lee", "lily", "lily", "marina", "mark", "mark", "marsh", "mason", "matt", "max", "maxim", "may", "may", "mcdonald", "melody", "mike", "miles", "milo", "misty", "nick", "norm", "olive", "opal", "oral", "pam", "pansy", "pat", "patience", "patsy", "patty", "pearl", "peg", "penny", "pepper", "peter", "petunia", "pierce", "poppy", "queen", "ralph", "randy", "ransom", "ray", "red", "reed", "rich", "rick", "river", "rob", "rock", "roger", "rose", "rowan", "ruth", "sally", "sandy", "scot", "shad", "shepherd", "skip", "sky", "sly", "stone", "sue", "summer", "summer", "tab", "tad", "tanner", "tara", "tiffany", "tom", "tony", "tucker", "violet", "wade", "ward", "warren", "will", "winter", "wren", "smith", "king", "jr", "robin", "standard", "hall", "curry", "sawyer", "porter", "elder", "service", "early", "shay", "waters", "jay", "peoples", "stokes", "hogan", "los", "iv", "iii", "law", "terry", "rosemary", "coco", "miller", "self", "bates", "young", "gray", "cooper", "ken", "hill", "caballero", "pan", "wiener", "peters", "bass", "ted", "lieu", "cox", "harder", "ma", "wicks", "quirk", "ash", "low", "ed", "bloom", "nelson", "butler", "rice", "bacon", "baker", "bays", "bishop", "brown", "bush", "carter", "crane", "timothy", "dormer", "duke", "fall", "ford", "forte", "freer", "garland", "green", "grove", "hanks", "hart", "hickey", "hood", "margarita", "kirsch", "knight", "long", "maria", "mealy", "miner", "warden", "mills", "sherry", "provost", "molly", "ridge", "rigger", "hector", "romeo", "sharp", "shuffler", "sierra", "silver", "sold", "st", "stage", "stark", "street", "tong", "van", "vita", "weaver", "woods", "bears", "dove", "hunt", "ting", "horseman", "black", "nice", "dickey", "hooker", "repay", "hook", "condo", "cousins"])
 
-name_excl = set(["regional", "website", "office", "camp", "employment", "ceo", "tlc", "tempore", "mr", "ms", "dnc"])
+name_excl = set(["regional", "website", "office", "camp", "employment", "ceo", "tlc", "tempore", "mr", "ms", "dnc", "latino", "february", "african"])
 
 html_attrs = set(["id", "class", "style", "lang", "xml:lang", "coords", "shape", "href", "src", "width", "height", "rel"])
 html_tags = set(["svg", "path", "style", "script", "link", "form", "input"])
@@ -74,13 +74,15 @@ class ParseCA:
 				response = self.opener.open(url)
 				data = response.read()
 				try:
-					decoded = UnicodeDammit(gzip.GzipFile(fileobj=io.BytesIO(data)).read(), ["windows-1252"], smart_quotes_to="html").unicode_markup.encode('utf8')
+					decoded = UnicodeDammit(gzip.GzipFile(fileobj=io.BytesIO(data)).read(), ["windows-1252"], smart_quotes_to="html").unicode_markup
 				except:
-					decoded = UnicodeDammit(data, ["windows-1252"], smart_quotes_to="html").unicode_markup.encode('utf8')
-				print >>fptr, decoded
+					decoded = UnicodeDammit(data, ["windows-1252"], smart_quotes_to="html").unicode_markup
+				decoded = decoded.replace(u"%20", u" ").replace(u"&nbsp;", u" ").replace(u"\xe2&euro;&trade;", u"\'").replace(u"\xe2&euro;&oelig;", u"\"").replace(u"\xe2&euro;", "\"").replace(u"\"&ldquo;", "-")
+				#.replace(u"\xe2\x80\x9c", u"\"").replace(u"\xe2\x80\x9d", u"\"").replace(u"\xc3\xb3", u"\u00f3").replace(u"\xc3\xad", u"\u00ed").replace(u"\xe2\x20\xac\x21\x22", u"\'").replace(u"\xe2\x20\xac\x01\x53", u"\"").replace(u"\xe2\x20\xac", u"\"").replace(u"\xe2\x20\xac\x20\x1c", u" - ").replace(u"\xc3", u"\u00e9").replace(u"\x00\xc2", u" ")
+				print >>fptr, decoded.encode('utf8')
 		parser = Parser()
 		with open(cache + ".html", 'r') as fptr:
-			data = fptr.read().decode('utf8').replace("%20", "").replace(u"\xe2\x80\x9c", u"\"").replace(u"\xe2\x80\x9d", u"\"").replace(u"\xc3\xb3", u"\u00f3").replace(u"\xc3\xad", u"\u00ed").replace(u"\\xe2\\u20ac\\u2122", u"\'").replace(u"\\xe2\\u20ac\\u0153", u"\"").replace(u"\\xe2\\u20ac", u"\"").replace(u"\\xe2\\u20ac\\u201c", " - ").replace(u"\xc3", u"\u00E9")
+			data = fptr.read().decode('utf8')
 			parser.feed(data)
 		return parser
 
@@ -224,6 +226,8 @@ class ParseCA:
 			else:
 				inDict.append(lword)
 				end = True
+				if lword not in name_excl and lword not in name_incl:
+					print "maybe add " + str(elem[obj.start(0)-10 if obj.start(0) >= 10 else 0:obj.start(0)].encode("utf8")) + "[" + str(word.encode("utf8")) + "]" + str(elem[obj.end(0):obj.end(0)+10 if obj.end(0)+10 < len(elem) else len(elem)].encode("utf8"))
 
 			if end:
 				if count >= 2:
@@ -264,19 +268,19 @@ class ParseCA:
 			start = nameEnd
 
 		result = '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
-		if "{}" not in result:
-			print "input: " + repr(elem)
-			print "words: " + repr(words)
-			print "indict: " + repr(inDict)
-			print "parsed: " + repr(result)
-			print "names: " + repr(parsedNames)
-			print ""
+		#if "{}" not in result:
+		#	print "input: " + repr(elem)
+		#	print "words: " + repr(words)
+		#	print "indict: " + repr(inDict)
+		#	print "parsed: " + repr(result)
+		#	print "names: " + repr(parsedNames)
+		#	print ""
 		return result
 
 	def extractTitles(self, elem, addr):
 		r_pos = ur'Chair|Vice|Treasurer|Secretary|Director|Administrator|Fellow|Congressman|Congresswoman|Auditor|Leader|Senator|Representative|Member|Governer|Secretary|Controller|General|Attorney|Commissioner|Superindendent|Officer|President|Governor|Staff|Assemblymember|Rep\.|Sen\.|Speaker|Comptroller|Rev\.|Reverend|Mayor'
 
-		r_title = ur'(?:(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+) *[ -]? *)*(?=' + r_pos + ur')(?:' + r_pos + ur')(?: (?:of|for|in)(?: *[ -]? *(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+))+)?'
+		r_title = ur'(?:(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+)(?: +| *- *))*(?=' + r_pos + ur')(?:' + r_pos + ur')(?: (?:of|for|in)(?:(?: +| *- *)(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+))+)?'
 		objs = re.finditer(r_title, elem, flags=re.UNICODE)
 
 		rng = []
@@ -342,12 +346,13 @@ class ParseCA:
 		rng = []
 		start = 0
 		for obj in objs:
-			street = obj.group(0)
-			if not street:
-				print "Error: street matches empty string"
-			self.street.append((street, addr))
-			rng.append((start, obj.start(0)))
-			start = obj.end(0)
+			if obj.end(0) >= len(elem) or not re.match(u'^[a-zA-Z0-9]', elem[obj.end(0):]):
+				street = obj.group(0)
+				if not street:
+					print "Error: street matches empty string"
+				self.street.append((street, addr))
+				rng.append((start, obj.start(0)))
+				start = obj.end(0)
 		return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
 
 	def extractApt(self, elem, addr):
@@ -378,8 +383,7 @@ class ParseCA:
 					value = self.extractCity(value, addr)
 					value = self.extractTitles(value, addr)
 					#value = self.extractOrgs(value, addr)
-					if tag != 'a':
-						value = self.extractNames(value, addr)
+					value = self.extractNames(value, addr)
 					#if value.replace("{}", "").replace(" ", ""):
 					#	print (key, value)
 				elif key in ["href", "src"]:
@@ -528,6 +532,7 @@ class ParseCA:
 								if maxdepth >= len(addr) or test[maxdepth] > addr[maxdepth]:
 									if end is None or test[maxdepth] < end:
 										end = test[maxdepth]
+				#start = addr[maxdepth] if maxdepth < len(addr) else addr
 				base = addr[0:maxdepth]
 				if start is None or end is None:
 					root = []
@@ -552,20 +557,20 @@ class ParseCA:
 				entry = self.buildEntry(entry, base, start, end, self.orgs, 'org')
 
 			self.results[name] = entry
-		print 'emails: ' + repr(self.emails)
-		print 'phones: ' + repr(self.phones)
-		print 'links: ' + repr(self.links)
-		print 'fax: ' + repr(self.fax)
+		#print 'emails: ' + repr(self.emails)
+		#print 'phones: ' + repr(self.phones)
+		#print 'links: ' + repr(self.links)
+		#print 'fax: ' + repr(self.fax)
 		self.emails = {}
 		self.phones = {}
 		self.links = {}
 		self.names = {}
 
-		print 'titles: ' + repr(self.titles)
-		print 'city: ' + repr(self.city)
-		print 'street: ' + repr(self.street)
-		print 'apt: ' + repr(self.apt)
-		print 'org: ' + repr(self.orgs)
+		#print 'titles: ' + repr(self.titles)
+		#print 'city: ' + repr(self.city)
+		#print 'street: ' + repr(self.street)
+		#print 'apt: ' + repr(self.apt)
+		#print 'org: ' + repr(self.orgs)
 		self.titles = []
 		self.city = []
 		self.street = []
@@ -587,6 +592,7 @@ parser.scrape("http://www.cadem.org/our-party/dnc-members")
 parser.scrape("https://nydems.org/our-party/")
 parser.scrape("https://missouridemocrats.org/county-parties/")
 parser.scrape("https://missouridemocrats.org/officers-and-staff/")
+parser.scrape("https://www.indems.org/our-party/state-committee/")
 
 print json.dumps(parser.results, indent=2, cls=SetEncoder)
 
