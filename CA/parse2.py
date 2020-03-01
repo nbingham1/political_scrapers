@@ -35,6 +35,8 @@ name_excl = set(["regional", "website", "office", "camp", "employment", "ceo", "
 html_attrs = set(["id", "class", "style", "lang", "xml:lang", "coords", "shape", "href", "src", "width", "height", "rel"])
 html_tags = set(["svg", "path", "style", "script", "link", "form", "input"])
 
+phone_codes = [("ABC", 2), ("DEF", 3), ("GHI", 4), ("JKL", 5), ("MNO", 6), ("PQRS", 7), ("TUV", 8), ("WXYZ", 9)]
+
 class ParseCA:
 	def __init__(self):
 		self.opener = urllib2.build_opener()
@@ -44,6 +46,12 @@ class ParseCA:
 			("Accept-Language", "en-US,en;q=0.5"),
 			("Accept-Encoding", "gzip, deflate, br")
 		]
+
+		self.urls = []
+		self.eng = enchant.Dict("en_US")
+		self.eng.add("signup")
+		self.eng.add("iframe")
+		self.eng.add("analytics")
 
 		self.names = {}
 		self.phones = {}
@@ -58,26 +66,22 @@ class ParseCA:
 		self.city = []
 
 		self.offices = []
-
-		self.eng = enchant.Dict("en_US")
-		self.eng.add("signup")
-		self.eng.add("iframe")
-		self.eng.add("analytics")
-		
-		self.phone_codes = [("ABC", 2), ("DEF", 3), ("GHI", 4), ("JKL", 5), ("MNO", 6), ("PQRS", 7), ("TUV", 8), ("WXYZ", 9)]
-		self.results = {}
-		self.urls = []
+		self.people = {}
+		self.groups = {}
 
 	def getURL(self, url, cache):
 		if not os.path.isfile(cache + ".html"):
 			with open(cache + ".html", "w") as fptr:
-				response = self.opener.open(url)
+				try:
+					response = self.opener.open(url)
+				except:
+					return None
 				data = response.read()
 				try:
 					decoded = UnicodeDammit(gzip.GzipFile(fileobj=io.BytesIO(data)).read(), ["windows-1252"], smart_quotes_to="html").unicode_markup
 				except:
 					decoded = UnicodeDammit(data, ["windows-1252"], smart_quotes_to="html").unicode_markup
-				decoded = decoded.replace(u"%20", u" ").replace(u"&nbsp;", u" ").replace(u"\xe2&euro;&trade;", u"\'").replace(u"\xe2&euro;&oelig;", u"\"").replace(u"\xe2&euro;", "\"").replace(u"\"&ldquo;", "-")
+				decoded = decoded.replace(u"%20", u" ").replace(u"\u00c2", u" ").replace(u"\xe2&euro;&trade;", u"\'").replace(u"\xe2&euro;&oelig;", u"\"").replace(u"\xe2&euro;", "\"").replace(u"\"&ldquo;", "-")
 				#.replace(u"\xe2\x80\x9c", u"\"").replace(u"\xe2\x80\x9d", u"\"").replace(u"\xc3\xb3", u"\u00f3").replace(u"\xc3\xad", u"\u00ed").replace(u"\xe2\x20\xac\x21\x22", u"\'").replace(u"\xe2\x20\xac\x01\x53", u"\"").replace(u"\xe2\x20\xac", u"\"").replace(u"\xe2\x20\xac\x20\x1c", u" - ").replace(u"\xc3", u"\u00e9").replace(u"\x00\xc2", u" ")
 				print >>fptr, decoded.encode('utf8')
 		parser = Parser()
@@ -140,7 +144,7 @@ class ParseCA:
 			if not phone:
 				print "Error: phone matches empty string"
 			phone = phone[0:3] + '-' + phone[3:6] + '-' + phone[6:]
-			for key, value in self.phone_codes:
+			for key, value in phone_codes:
 				for char in key:
 					phone = phone.replace(unicode(char), unicode(value))
 
@@ -300,7 +304,7 @@ class ParseCA:
 	def extractOrgs(self, elem, addr):
 		r_org = r'Democrats|Dems|Republicans|Repubs|Reps|Party|Board|County|State|City|Committee|Council'
 
-		r_orgtitle = r'(?:(?:[A-Z][a-z]+|[0-9]+[a-z]*)[ -]+)*(?=' + r_org + ')(?:' + r_org + ')'
+		r_orgtitle = r'(?:(?:[A-Z][a-z]+|[0-9]+[a-z]*)(?: +| *- *))*(?=' + r_org + ')(?:' + r_org + ')'
 		objs = re.finditer(r_orgtitle, elem)
 
 		rng = []
@@ -382,10 +386,8 @@ class ParseCA:
 					value = self.extractApt(value, addr)
 					value = self.extractCity(value, addr)
 					value = self.extractTitles(value, addr)
-					#value = self.extractOrgs(value, addr)
+					value = self.extractOrgs(value, addr)
 					value = self.extractNames(value, addr)
-					#if value.replace("{}", "").replace(" ", ""):
-					#	print (key, value)
 				elif key in ["href", "src"]:
 					value = self.extractLinks(value, addr)
 
@@ -398,11 +400,8 @@ class ParseCA:
 			elem = self.extractApt(elem, addr)
 			elem = self.extractCity(elem, addr)
 			elem = self.extractTitles(elem, addr)
-
-			#elem = self.extractOrgs(elem, addr)
+			elem = self.extractOrgs(elem, addr)
 			elem = self.extractNames(elem, addr)
-			#if elem.replace("{}", "").replace(" ", ""):
-			#	print repr(elem)
 
 
 	def traverse(self, elem, addr=[]):
@@ -481,7 +480,51 @@ class ParseCA:
 						del data[i]
 		return entry
 
-	def develop(self):
+	def findBounds(self, name, start, end, maxdepth, addr, data):
+		for name1, tests in data.items():
+			if name != name1:
+				for test in tests:
+					d = depth(addr, test)
+					if d > maxdepth:
+						maxdepth = d
+						start = None
+						end = None
+					if d == maxdepth and maxdepth < len(test):
+						if maxdepth >= len(addr) or test[maxdepth] < addr[maxdepth]:
+							if start is None or test[maxdepth]+1 > start:
+								start = test[maxdepth]+1
+						if maxdepth >= len(addr) or test[maxdepth] > addr[maxdepth]:
+							if end is None or test[maxdepth] < end:
+								end = test[maxdepth]
+		return (start, end, maxdepth)
+
+	def develop(self, props = None):
+		membership = []
+		organization = {}
+		for org, addr in self.orgs:
+			root = []
+			root = self.findRoot(root, addr, self.street)
+			root = self.findRoot(root, addr, self.apt)
+			root = self.findRoot(root, addr, self.phones)
+			root = self.findRoot(root, addr, self.fax)
+			found = False
+			for addrs in self.names.values():
+				for test in addrs:
+					if len(test) > len(root) and test[0:len(root)] == root:
+						found = True
+						break
+				if found:
+					break
+
+			if found:
+				if org in organization:
+					organization[org].append(addr)
+				else:
+					organization[org] = [addr]
+			else:
+				membership.append((org, addr))
+		self.orgs = []
+
 		# tie addresses together
 		cities = [addr for city, addr in self.city]
 		for addr in cities:
@@ -510,28 +553,64 @@ class ParseCA:
 
 		for name, addrs in self.names.items():
 			entry = {}
-			if name in self.results:
-				entry = self.results[name]
+			if name in self.people:
+				entry = self.people[name]
+		
+			if props:
+				for key, value in props.items():
+					if key in entry:
+						if isinstance(entry[key], set):
+							entry[key].add(value)
+						elif isinstance(entry[key], list):
+							entry[key].append(value)
+					else:
+						entry[key] = value
+
+			for addr in addrs:
+				maxdepth = 0
+				start = None
+				end = None
+				start, end, maxdepth = self.findBounds(name, start, end, maxdepth, addr, self.names)
+				start, end, maxdepth = self.findBounds(name, start, end, maxdepth, addr, organization)
+			
+				cstart = addr[maxdepth] if maxdepth < len(addr) else addr
+				base = addr[0:maxdepth]
+				if start is None or end is None:
+					root = []
+					root = self.findRoot(root, addr, self.emails)
+					root = self.findRoot(root, addr, self.phones)
+					root = self.findRoot(root, addr, self.links)
+					root = self.findRoot(root, addr, self.fax)
+					if len(root) > len(base):
+						base = root
+						start = None
+						end = None
+
+				entry = self.buildEntry(entry, base, cstart, end, self.emails, 'email')
+				entry = self.buildEntry(entry, base, cstart, end, self.phones, 'phone')
+				entry = self.buildEntry(entry, base, cstart, end, self.links, 'link')
+				entry = self.buildEntry(entry, base, cstart, end, self.fax, 'fax')
+				entry = self.buildEntry(entry, base, cstart, end, self.city, 'city')
+				entry = self.buildEntry(entry, base, cstart, end, self.street, 'street')
+				entry = self.buildEntry(entry, base, cstart, end, self.apt, 'apt')
+				entry = self.buildEntry(entry, base, start, end, self.titles, 'title')
+				entry = self.buildEntry(entry, base, cstart, end, self.offices, 'office')
+				entry = self.buildEntry(entry, base, start, end, membership, 'org')
+
+			self.people[name] = entry
+
+		for name, addrs in organization.items():
+			entry = {}
+			if name in self.groups:
+				entry = self.groups[name]
 			
 			for addr in addrs:
 				maxdepth = 0
 				start = None
 				end = None
-				for name1, tests in self.names.items():
-					if name != name1:
-						for test in tests:
-							d = depth(addr, test)
-							if d > maxdepth:
-								maxdepth = d
-								start = None
-								end = None
-							if d == maxdepth and maxdepth < len(test):
-								if maxdepth >= len(addr) or test[maxdepth] < addr[maxdepth]:
-									if start is None or test[maxdepth]+1 > start:
-										start = test[maxdepth]+1
-								if maxdepth >= len(addr) or test[maxdepth] > addr[maxdepth]:
-									if end is None or test[maxdepth] < end:
-										end = test[maxdepth]
+				start, end, maxdepth = self.findBounds(name, start, end, maxdepth, addr, self.names)
+				start, end, maxdepth = self.findBounds(name, start, end, maxdepth, addr, organization)
+			
 				#start = addr[maxdepth] if maxdepth < len(addr) else addr
 				base = addr[0:maxdepth]
 				if start is None or end is None:
@@ -554,9 +633,10 @@ class ParseCA:
 				entry = self.buildEntry(entry, base, start, end, self.apt, 'apt')
 				entry = self.buildEntry(entry, base, start, end, self.titles, 'title')
 				entry = self.buildEntry(entry, base, start, end, self.offices, 'office')
-				entry = self.buildEntry(entry, base, start, end, self.orgs, 'org')
+				entry = self.buildEntry(entry, base, start, end, membership, 'org')
 
-			self.results[name] = entry
+			self.groups[name] = entry
+
 		#print 'emails: ' + repr(self.emails)
 		#print 'phones: ' + repr(self.phones)
 		#print 'links: ' + repr(self.links)
@@ -577,22 +657,23 @@ class ParseCA:
 		self.apt = []
 		self.orgs = []
 
-	def scrape(self, url):
+	def scrape(self, url, props=None):
 		uid = str(len(self.urls))
 		self.traverse(self.getURL(url, uid).syntax)
 		self.urls.append(url)
-		self.develop()
+		self.develop(props)
 
 parser = ParseCA()
 
-parser.scrape("http://www.cadem.org/our-party/leaders")
-parser.scrape("http://www.cadem.org/our-party/elected-officials")
-parser.scrape("http://www.cadem.org/our-party/our-county-committees")
-parser.scrape("http://www.cadem.org/our-party/dnc-members")
-parser.scrape("https://nydems.org/our-party/")
-parser.scrape("https://missouridemocrats.org/county-parties/")
-parser.scrape("https://missouridemocrats.org/officers-and-staff/")
-parser.scrape("https://www.indems.org/our-party/state-committee/")
+#parser.scrape("http://www.cadem.org/our-party/leaders", {"state":"California","party":"Democratic"})
+#parser.scrape("http://www.cadem.org/our-party/elected-officials", {"state":"California","party":"Democratic"})
+#parser.scrape("http://www.cadem.org/our-party/our-county-committees", {"state":"California","party":"Democratic"})
+#parser.scrape("http://www.cadem.org/our-party/dnc-members", {"state":"California","party":"Democratic"})
+#parser.scrape("https://nydems.org/our-party/", {"state":"New York","party":"Democratic"})
+#parser.scrape("https://missouridemocrats.org/county-parties/", {"state":"Missouri","party":"Democratic"})
+#parser.scrape("https://missouridemocrats.org/officers-and-staff/", {"state":"Missouri","party":"Democratic"})
+parser.scrape("https://www.indems.org/our-party/state-committee/", {"state":"Indiana","party":"Democratic"})
 
-print json.dumps(parser.results, indent=2, cls=SetEncoder)
+print json.dumps(parser.people, indent=2, cls=SetEncoder)
+print json.dumps(parser.groups, indent=2, cls=SetEncoder)
 
