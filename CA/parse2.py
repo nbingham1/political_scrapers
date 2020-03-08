@@ -16,6 +16,9 @@ from bs4 import UnicodeDammit
 from pyhtml.html import *
 from pyhtml.parse import *
 
+# To parse google sheets:
+# https://docs.google.com/spreadsheets/d/1kWoPXvugCEtxluGcHJuq4geWBAFa0HhI-V3BVelVgJ8/gviz/tq?tqx=out:csv&sheet=
+
 class SetEncoder(json.JSONEncoder):
 	def default(self, obj):
 		if isinstance(obj, set):
@@ -28,7 +31,21 @@ def depth(addr1, addr2):
 			return i
 	return min(len(addr1), len(addr2))
 
-name_incl = set(["rusty", "hicks", "abbey", "albert", "allie", "amber", "andrew", "angel", "april", "art", "august", "aurora", "autumn", "baldric", "barb", "bay", "bill", "bob", "booth", "brad", "brandy", "brook", "buck", "candy", "carol", "carole", "cat", "chad", "charity", "chase", "chip", "christian", "chuck", "clay", "cliff", "colt", "cricket", "crystal", "daisy", "dale", "dale", "dash", "dawn", "dean", "derrick", "destiny", "dick", "dixie", "dolly", "don", "dori", "dory", "dot", "earl", "ebony", "elle", "eve", "faith", "fanny", "faye", "fern", "flora", "frank", "gale", "gay", "gene", "ginger", "glen", "gore", "grace", "grant", "guy", "hale", "harmony", "harry", "hazel", "heath", "heather", "heaven", "henry", "holly", "hope", "hunter", "iris", "ivy", "ivy", "jack", "jade", "jean", "jenny", "jerry", "jersey", "jewel", "jimmy", "john", "josh", "joy", "june", "kitty", "lacy", "lance", "laurel", "lee", "lily", "lily", "marina", "mark", "mark", "marsh", "mason", "matt", "max", "maxim", "may", "may", "mcdonald", "melody", "mike", "miles", "milo", "misty", "nick", "norm", "olive", "opal", "oral", "pam", "pansy", "pat", "patience", "patsy", "patty", "pearl", "peg", "penny", "pepper", "peter", "petunia", "pierce", "poppy", "queen", "ralph", "randy", "ransom", "ray", "red", "reed", "rich", "rick", "river", "rob", "rock", "roger", "rose", "rowan", "ruth", "sally", "sandy", "scot", "shad", "shepherd", "skip", "sky", "sly", "stone", "sue", "summer", "summer", "tab", "tad", "tanner", "tara", "tiffany", "tom", "tony", "tucker", "violet", "wade", "ward", "warren", "will", "winter", "wren", "smith", "king", "jr", "robin", "standard", "hall", "curry", "sawyer", "porter", "elder", "service", "early", "shay", "waters", "jay", "peoples", "stokes", "hogan", "los", "iv", "iii", "law", "terry", "rosemary", "coco", "miller", "self", "bates", "young", "gray", "cooper", "ken", "hill", "caballero", "pan", "wiener", "peters", "bass", "ted", "lieu", "cox", "harder", "ma", "wicks", "quirk", "ash", "low", "ed", "bloom", "nelson", "butler", "rice", "bacon", "baker", "bays", "bishop", "brown", "bush", "carter", "crane", "timothy", "dormer", "duke", "fall", "ford", "forte", "freer", "garland", "green", "grove", "hanks", "hart", "hickey", "hood", "margarita", "kirsch", "knight", "long", "maria", "mealy", "miner", "warden", "mills", "sherry", "provost", "molly", "ridge", "rigger", "hector", "romeo", "sharp", "shuffler", "sierra", "silver", "sold", "st", "stage", "stark", "street", "tong", "van", "vita", "weaver", "woods", "bears", "dove", "hunt", "ting", "horseman", "black", "nice", "dickey", "hooker", "repay", "hook", "condo", "cousins"])
+name_incl = set([])
+with open("name_words.txt", "r") as fptr:
+	for line in fptr:
+		name_incl.add(line.strip())
+
+preps = set([])
+with open("prepositions.txt", "r") as fptr:
+	for line in fptr:
+		preps.add(line.strip())
+
+title_tags = set([])
+with open("titles.txt", "r") as fptr:
+	for line in fptr:
+		title_tags.add(line.strip())
+
 
 name_excl = set(["regional", "website", "office", "camp", "employment", "ceo", "tlc", "tempore", "mr", "ms", "dnc", "latino", "february", "african"])
 
@@ -37,7 +54,7 @@ html_tags = set(["svg", "path", "style", "script", "link", "form", "input"])
 
 phone_codes = [("ABC", 2), ("DEF", 3), ("GHI", 4), ("JKL", 5), ("MNO", 6), ("PQRS", 7), ("TUV", 8), ("WXYZ", 9)]
 
-class ParseCA:
+class ScrapeHTML:
 	def __init__(self):
 		self.opener = urllib2.build_opener()
 		self.opener.addheaders = [
@@ -105,7 +122,7 @@ class ParseCA:
 				link = obj.group(0).lower()
 				if not link:
 					print "Error: link matches empty string"
-				if "wp-content" not in link and "wp-json" not in link and "googleapis.com" not in link and "wp-includes" not in link and "googletagmanager.com" not in link and "addthis.com" not in link:
+				if "wp-json" not in link and "googleapis.com" not in link and "wp-includes" not in link and "googletagmanager.com" not in link and "addthis.com" not in link:
 					if link in self.links:
 						self.links[link].append(addr)
 					else:
@@ -230,8 +247,8 @@ class ParseCA:
 			else:
 				inDict.append(lword)
 				end = True
-				if lword not in name_excl and lword not in name_incl:
-					print "maybe add " + str(elem[obj.start(0)-10 if obj.start(0) >= 10 else 0:obj.start(0)].encode("utf8")) + "[" + str(word.encode("utf8")) + "]" + str(elem[obj.end(0):obj.end(0)+10 if obj.end(0)+10 < len(elem) else len(elem)].encode("utf8"))
+				#if lword not in name_excl and lword not in name_incl:
+				#	print "maybe add " + str(elem[obj.start(0)-10 if obj.start(0) >= 10 else 0:obj.start(0)].encode("utf8")) + "[" + str(word.encode("utf8")) + "]" + str(elem[obj.end(0):obj.end(0)+10 if obj.end(0)+10 < len(elem) else len(elem)].encode("utf8"))
 
 			if end:
 				if count >= 2:
@@ -282,9 +299,22 @@ class ParseCA:
 		return result
 
 	def extractTitles(self, elem, addr):
-		r_pos = ur'Chair|Vice|Treasurer|Secretary|Director|Administrator|Fellow|Congressman|Congresswoman|Auditor|Leader|Senator|Representative|Member|Governer|Secretary|Controller|General|Attorney|Commissioner|Superindendent|Officer|President|Governor|Staff|Assemblymember|Rep\.|Sen\.|Speaker|Comptroller|Rev\.|Reverend|Mayor'
+		r_name = ur'(?<![A-Za-z0-9])[A-Z][a-z]+(?![A-Za-z0-9])\.?'
 
-		r_title = ur'(?:(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+)(?: +| *- *))*(?=' + r_pos + ur')(?:' + r_pos + ur')(?: (?:of|for|in)(?:(?: +| *- *)(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+))+)?'
+		names = re.finditer(r_name, elem, flags=re.UNICODE)
+
+
+
+
+		options = [name.group(0) for name in names]
+
+		if len(options) > 0:
+			print "Searching: " + str(elem)
+			print "Options: " + str(options)
+
+		r_pos = ur'Chair|Vice|Treasurer|Secretary|Director|Administrator|Fellow|Congressman|Congresswoman|Congressperson|Auditor|Leader|Senator|Representative|Member|Governer|Secretary|Controller|General|Attorney|Commissioner|Superindendent|Officer|President|Governor|Staff|Assemblymember|Rep\.|Sen\.|Speaker|Comptroller|Rev\.|Reverend|Mayor|Parliamentarian|Legal +Counsel|Chairperson'
+
+		r_title = ur'(?:(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+)(?: +| *- *))*(?=' + r_pos + ur')(?:' + r_pos + ur')(?![a-zA-Z0-9])(?: (?:of|for|in)(?:(?: +| *- *)(?:[A-Z][a-z]+|[0-9]+[A-Za-z]*|[A-Z]+))+)?'
 		objs = re.finditer(r_title, elem, flags=re.UNICODE)
 
 		rng = []
@@ -296,15 +326,19 @@ class ParseCA:
 			if i > 0 and obj.start(0) - start <= 1:
 				self.titles[-1] = (elem[rng[-1][1]:obj.end(0)], addr)
 			else:
+				if options:
+					print "Found: " + str(title)
 				self.titles.append((title, addr))
 				rng.append((start, obj.start(0)))
 			start = obj.end(0)
+		if options:
+			print ""
 		return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
 
 	def extractOrgs(self, elem, addr):
-		r_org = r'Democrats|Dems|Republicans|Repubs|Reps|Party|Board|County|State|City|Committee|Council'
+		r_org = r'Democrats|Dems|Republicans|Repubs|Reps|Democratic +Party|Republican +Party|Board|County|State|City|Committee|Council|District(?: +[0-9]+[A-Za-z]*)?|Caucus'
 
-		r_orgtitle = r'(?:(?:[A-Z][a-z]+|[0-9]+[a-z]*)(?: +| *- *))*(?=' + r_org + ')(?:' + r_org + ')'
+		r_orgtitle = r'(?:(?:[A-Z][a-z]+|[0-9]+[a-z]*)(?: +| *- *))*(?=' + r_org + ')(?:' + r_org + ')(?![A-Za-z0-9])'
 		objs = re.finditer(r_orgtitle, elem)
 
 		rng = []
@@ -322,7 +356,7 @@ class ParseCA:
 		return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
 
 	def extractCity(self, elem, addr):
-		r_zip = r'[0-9]{5}(?:-[0-9]{4})?'
+		r_zip = r'[0-9]{5}(?:-[0-9]{4})?(?![A-Za-z0-9])'
 		r_city = r'(?:[A-Z][a-z.-]+ ?)+'
 		r_state = r'Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming'
 		r_stateabbr = r'AL\.?|AK\.?|AS\.?|AZ\.?|AR\.?|CA\.?|CO\.?|CT\.?|DE\.?|D\.?C\.?|FM\.?|FL\.?|GA\.?|GU\.?|HI\.?|ID\.?|IL\.?|IN\.?|IA\.?|KS\.?|KY\.?|LA\.?|ME\.?|MH\.?|MD\.?|MA\.?|MI\.?|MN\.?|MS\.?|MO\.?|MT\.?|NE\.?|NV\.?|NH\.?|NJ\.?|NM\.?|NY\.?|NC\.?|ND\.?|MP\.?|OH\.?|OK\.?|OR\.?|PW\.?|PA\.?|PR\.?|RI\.?|SC\.?|SD\.?|TN\.?|TX\.?|UT\.?|VT\.?|VI\.?|VA\.?|WA\.?|WV\.?|WI\.?|WY\.?'
@@ -344,7 +378,7 @@ class ParseCA:
 	def extractStreet(self, elem, addr):
 		r_street = r'(?:[0-9]+[A-Za-z]*|[A-Z][a-z]*) (?:[A-Z0-9][A-Za-z0-9]*(?:-[A-Z0-9][a-z0-9]*)?\.? )+(?=Avenue|Lane|Road|Boulevard|Drive|Street|Mall|Plaza|Ave|Dr|Rd|Blvd|Ln|St|Hwy|Highway|Park|Route|Rt|Court|Ct|SR)(?:Avenue|Lane|Road|Boulevard|Drive|Street|Mall|Plaza|Ave|Dr|Rd|Blvd|Ln|St|Hwy\.? *[0-9]+|Highway *[0-9]+|Park|Route *[0-9]+|Rt\.? *[0-9]+|Court|Ct|SR\.? *[0-9]+)\.?'
 		r_po = r'P\.?O\.? Box [0-9]+'
-		r_streetbox = r'(?:' + r_po + '|' + r_street + ')'
+		r_streetbox = r'(?:' + r_po + '|' + r_street + ')(?![A-Za-z0-9])'
 	
 		objs = re.finditer(r_streetbox, elem)
 		rng = []
@@ -361,7 +395,7 @@ class ParseCA:
 
 	def extractApt(self, elem, addr):
 		r_apt = r'(?:[A-Z0-9][a-z0-9]*(?:-[A-Z0-9][a-z0-9]*)?\.?,? )*(?=Apartment|Building|Floor|Suite|Unit|Room|Department|Apt|Bldg|Fl|Ste|Rm|Dept)(?:Apartment|Building|Floor|Suite|Unit|Room|Department|Mall|Apt|Bldg|Fl|Ste|Rm|Dept)s?\.?'
-		r_aptnum = r'(:?[0-9]+[A-Za-z]* +' + r_apt + r'|' + r_apt + r' +[0-9]+[A-Za-z]*(?:(?: *[-,&] *| +)[0-9]+[A-Za-z]*)*)'
+		r_aptnum = r'(:?[0-9]+[A-Za-z]* +' + r_apt + r'(?![A-Za-z0-9])|(?<![A-Za-z0-9])' + r_apt + r' +[0-9]+[A-Za-z]*(?:(?: *[-,&] *| +)[0-9]+[A-Za-z]*)*)'
 		
 		objs = re.finditer(r_aptnum, elem)
 		rng = []
@@ -385,8 +419,8 @@ class ParseCA:
 					value = self.extractStreet(value, addr)
 					value = self.extractApt(value, addr)
 					value = self.extractCity(value, addr)
-					value = self.extractTitles(value, addr)
 					value = self.extractOrgs(value, addr)
+					value = self.extractTitles(value, addr)
 					value = self.extractNames(value, addr)
 				elif key in ["href", "src"]:
 					value = self.extractLinks(value, addr)
@@ -399,10 +433,36 @@ class ParseCA:
 			elem = self.extractStreet(elem, addr)
 			elem = self.extractApt(elem, addr)
 			elem = self.extractCity(elem, addr)
-			elem = self.extractTitles(elem, addr)
 			elem = self.extractOrgs(elem, addr)
+			elem = self.extractTitles(elem, addr)
 			elem = self.extractNames(elem, addr)
 
+	def normalize(self, content):
+		levels = {
+			"h1": 1,
+			"h2": 2,
+			"h3": 3,
+			"h4": 4,
+			"h5": 5,
+		}
+
+		stack = [(0, [])] # (level, element content)
+		i = 0
+		for elem in content:
+			if isinstance(elem, Tag):
+				self.normalize(elem.content)
+
+			if not isinstance(elem, Tag) or elem.name not in levels:
+				stack[-1][1].append(elem)
+			else:
+				level = levels[elem.name]
+				while level <= stack[-1][0]:
+					stack.pop()
+
+				stack[-1][1].append(Div() << elem)
+				stack.append((level, stack[-1][1][-1].content))
+		del content[:]
+		content.extend(stack[0][1])
 
 	def traverse(self, elem, addr=[]):
 		if isinstance(elem, Tag) and elem.name not in html_tags:
@@ -631,7 +691,6 @@ class ParseCA:
 				entry = self.buildEntry(entry, base, start, end, self.city, 'city')
 				entry = self.buildEntry(entry, base, start, end, self.street, 'street')
 				entry = self.buildEntry(entry, base, start, end, self.apt, 'apt')
-				entry = self.buildEntry(entry, base, start, end, self.titles, 'title')
 				entry = self.buildEntry(entry, base, start, end, self.offices, 'office')
 				entry = self.buildEntry(entry, base, start, end, membership, 'org')
 
@@ -659,21 +718,27 @@ class ParseCA:
 
 	def scrape(self, url, props=None):
 		uid = str(len(self.urls))
-		self.traverse(self.getURL(url, uid).syntax)
 		self.urls.append(url)
-		self.develop(props)
+		parser = self.getURL(url, uid)
+		if parser:
+			syntax = self.getURL(url, uid).syntax
+			self.normalize(syntax.content)
+			print syntax
+			self.traverse(syntax)
+			self.develop(props)
 
-parser = ParseCA()
+scraper = ScrapeHTML()
 
-#parser.scrape("http://www.cadem.org/our-party/leaders", {"state":"California","party":"Democratic"})
-#parser.scrape("http://www.cadem.org/our-party/elected-officials", {"state":"California","party":"Democratic"})
-#parser.scrape("http://www.cadem.org/our-party/our-county-committees", {"state":"California","party":"Democratic"})
-#parser.scrape("http://www.cadem.org/our-party/dnc-members", {"state":"California","party":"Democratic"})
-#parser.scrape("https://nydems.org/our-party/", {"state":"New York","party":"Democratic"})
-#parser.scrape("https://missouridemocrats.org/county-parties/", {"state":"Missouri","party":"Democratic"})
-#parser.scrape("https://missouridemocrats.org/officers-and-staff/", {"state":"Missouri","party":"Democratic"})
-parser.scrape("https://www.indems.org/our-party/state-committee/", {"state":"Indiana","party":"Democratic"})
+#scraper.scrape("http://www.cadem.org/our-party/leaders", {"state":"California","party":"Democratic"})
+#scraper.scrape("http://www.cadem.org/our-party/elected-officials", {"state":"California","party":"Democratic"})
+#scraper.scrape("http://www.cadem.org/our-party/our-county-committees", {"state":"California","party":"Democratic"})
+#scraper.scrape("http://www.cadem.org/our-party/dnc-members", {"state":"California","party":"Democratic"})
+#scraper.scrape("https://nydems.org/our-party/", {"state":"New York","party":"Democratic"})
+#scraper.scrape("https://missouridemocrats.org/county-parties/", {"state":"Missouri","party":"Democratic"})
+#scraper.scrape("https://missouridemocrats.org/officers-and-staff/", {"state":"Missouri","party":"Democratic"})
+scraper.scrape("https://www.indems.org/our-party/state-committee/", {"state":"Indiana","party":"Democratic"})
+#scraper.scrape("https://northplainfield.org/government/departments/directory.php")
 
-print json.dumps(parser.people, indent=2, cls=SetEncoder)
-print json.dumps(parser.groups, indent=2, cls=SetEncoder)
+print json.dumps(scraper.people, indent=2, cls=SetEncoder)
+print json.dumps(scraper.groups, indent=2, cls=SetEncoder)
 
