@@ -338,7 +338,7 @@ class ScrapeHTML:
 		return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
 
 	def extractOrgs(self, elem, addr):
-		r_org = r'Democrats|Dems|Republicans|Repubs|Reps|Democratic +Party|Republican +Party|Board|County|State|City|Committee|Council|District(?: +[0-9]+[A-Za-z]*)?|Caucus|BOE'
+		r_org = r'Democrats|Dems|Republicans|Repubs|Reps|Democratic +Party|Republican +Party|Board|County|State|City|Committee|Council|District:?(?: +[0-9]+[A-Za-z]*)?|Caucus|BOE'
 
 		r_orgtitle = r'(?:(?:[A-Z][a-z]+|[0-9]+[a-z]*)(?: +| *- *))*(?=' + r_org + ')(?:' + r_org + ')(?![A-Za-z0-9])'
 		objs = re.finditer(r_orgtitle, elem)
@@ -430,15 +430,17 @@ class ScrapeHTML:
 
 	def extractStr(self, tag, elem, addr):
 		elem = elem.strip().replace(u'\xa0', u' ').replace(u'\xa9', u'')
-		if elem and len(elem) < 256:
+		if elem:
 			elem = self.extractPhones(elem, addr)
 			elem = self.extractEmails(elem, addr)
 			elem = self.extractStreet(elem, addr)
 			elem = self.extractApt(elem, addr)
 			elem = self.extractCity(elem, addr)
-			elem = self.extractOrgs(elem, addr)
-			elem = self.extractTitles(elem, addr)
-			elem = self.extractNames(elem, addr)
+			if len(elem) < 128:
+				elem = self.extractOrgs(elem, addr)
+			if len(elem) < 32:
+				elem = self.extractTitles(elem, addr)
+				elem = self.extractNames(elem, addr)
 
 	def normalize(self, content):
 		levels = {
@@ -642,16 +644,16 @@ class ScrapeHTML:
 			
 				cstart = addr[maxdepth] if maxdepth < len(addr) else start
 				base = addr[0:maxdepth]
-				#if start is None and end is None:
-				#	root = []
-				#	root = self.findRoot(root, addr, self.emails)
-				#	root = self.findRoot(root, addr, self.phones)
-				#	root = self.findRoot(root, addr, self.links)
-				#	root = self.findRoot(root, addr, self.fax)
-				#	if len(root) > len(base):
-				#		base = root
-				#		start = None
-				#		end = None
+				if start is None and end is None:
+					root = []
+					root = self.findRoot(root, addr, self.emails)
+					root = self.findRoot(root, addr, self.phones)
+					root = self.findRoot(root, addr, self.links)
+					root = self.findRoot(root, addr, self.fax)
+					if len(root) > len(base):
+						base = root
+						start = None
+						end = None
 
 				entry = self.buildEntry(entry, base, cstart, end, self.emails, 'email')
 				entry = self.buildEntry(entry, base, cstart, end, self.phones, 'phone')
@@ -733,17 +735,19 @@ class ScrapeHTML:
 			self.traverse(syntax)
 			self.develop(props)
 
+	#def crawl(self, domains):
+		
+
 scraper = ScrapeHTML()
 
-
-scraper.scrape("http://www.cadem.org/our-party/leaders", {"state":"California","party":"Democratic"})
-scraper.scrape("http://www.cadem.org/our-party/elected-officials", {"state":"California","party":"Democratic"})
-scraper.scrape("http://www.cadem.org/our-party/our-county-committees", {"state":"California","party":"Democratic"})
-scraper.scrape("http://www.cadem.org/our-party/dnc-members", {"state":"California","party":"Democratic"})
-scraper.scrape("https://nydems.org/our-party/", {"state":"New York","party":"Democratic"})
+#scraper.scrape("http://www.cadem.org/our-party/leaders", {"state":"California","party":"Democratic"})
+#scraper.scrape("http://www.cadem.org/our-party/elected-officials", {"state":"California","party":"Democratic"})
+#scraper.scrape("http://www.cadem.org/our-party/our-county-committees", {"state":"California","party":"Democratic"})
+#scraper.scrape("http://www.cadem.org/our-party/dnc-members", {"state":"California","party":"Democratic"})
+#scraper.scrape("https://nydems.org/our-party/", {"state":"New York","party":"Democratic"})
 scraper.scrape("https://missouridemocrats.org/county-parties/", {"state":"Missouri","party":"Democratic"})
-scraper.scrape("https://missouridemocrats.org/officers-and-staff/", {"state":"Missouri","party":"Democratic"})
-scraper.scrape("https://www.indems.org/our-party/state-committee/", {"state":"Indiana","party":"Democratic"})
+#scraper.scrape("https://missouridemocrats.org/officers-and-staff/", {"state":"Missouri","party":"Democratic"})
+#scraper.scrape("https://www.indems.org/our-party/state-committee/", {"state":"Indiana","party":"Democratic"})
 
 #scraper.scrape("https://northplainfield.org/government/departments/directory.php")
 #scraper.scrape("http://aldemocrats.org/local/calhoun")
@@ -751,7 +755,7 @@ scraper.scrape("https://www.indems.org/our-party/state-committee/", {"state":"In
 #scraper.scrape("http://jameswelch.co/our-candidates/")
 #scraper.scrape("https://adlcc.com/our-members/state-senate/")
 #scraper.scrape("https://adlcc.com/our-members/state-house/")
-scraper.scrape("https://ctdems.org/your-party/officers/")
+#scraper.scrape("https://ctdems.org/your-party/officers/")
 
 # TODO check similarity between name or organization name and emails or links
 # s = SequenceMatcher(None, name, link)
