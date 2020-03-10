@@ -66,7 +66,10 @@ class ScrapeHTML:
 			("Accept-Encoding", "gzip, deflate, br")
 		]
 
-		self.urls = []
+		self.visited = []
+		self.tovisit = []
+		self.indexptr = None
+
 		self.eng = enchant.Dict("en_US")
 		self.eng.add("signup")
 		self.eng.add("iframe")
@@ -88,9 +91,9 @@ class ScrapeHTML:
 		self.people = {}
 		self.groups = {}
 
-	def getURL(self, url, cache):
-		if not os.path.isfile(cache + ".html"):
-			with open(cache + ".html", "w") as fptr:
+	def getURL(self, url, uid):
+		if not os.path.isfile(str(uid) + ".html"):
+			with open(str(uid) + ".html", "w") as fptr:
 				try:
 					response = self.opener.open(url)
 				except:
@@ -104,7 +107,7 @@ class ScrapeHTML:
 				#.replace(u"\xe2\x80\x9c", u"\"").replace(u"\xe2\x80\x9d", u"\"").replace(u"\xc3\xb3", u"\u00f3").replace(u"\xc3\xad", u"\u00ed").replace(u"\xe2\x20\xac\x21\x22", u"\'").replace(u"\xe2\x20\xac\x01\x53", u"\"").replace(u"\xe2\x20\xac", u"\"").replace(u"\xe2\x20\xac\x20\x1c", u" - ").replace(u"\xc3", u"\u00e9").replace(u"\x00\xc2", u" ")
 				print >>fptr, decoded.encode('utf8')
 		parser = etree.HTMLParser(target = Parser())
-		with open(cache + ".html", 'r') as fptr:
+		with open(str(uid) + ".html", 'r') as fptr:
 			data = fptr.read()
 			parser.feed(data.decode('utf8'))
 		return parser.close()
@@ -725,9 +728,7 @@ class ScrapeHTML:
 		self.apt = []
 		self.orgs = []
 
-	def scrape(self, url, props=None):
-		uid = str(len(self.urls))
-		self.urls.append(url)
+	def scrape(self, url, uid, props=None, owner=None):
 		parser = self.getURL(url, uid)
 		if parser:
 			syntax = self.getURL(url, uid).syntax
@@ -735,17 +736,46 @@ class ScrapeHTML:
 			self.traverse(syntax)
 			self.develop(props)
 
-	#def crawl(self, domains):
-		
+	def schedule(self, url, props, owner, recurse):
+		self.tovisit.append((url, props, owner, recurse))
+
+	def getUID(self, url):
+		if not self.indexptr:
+			self.indexptr = open("index.txt", "a+")
+			self.indexptr.seek(0, 0)
+			for line in self.indexptr:
+				line = line.strip()
+				if self.visited:
+					self.visited.append(line)
+				else:
+					self.visited = [line]
+		if url in self.visited:
+			return self.visited.index(url)
+		else:
+			uid = len(self.visited)
+			self.visited.append(url)
+			print >>self.indexptr, url
+			return uid
+
+	def crawl(self):
+		i = 0
+		while i < len(self.tovisit):
+			url, props, owner, recursion = self.tovisit[i]
+			uid = self.getUID(url)
+			self.scrape(url, uid, props, owner)
+			i += 1
 
 scraper = ScrapeHTML()
+scraper.schedule("http://www.cadem.org", {"state":"California","party":"Democratic"}, None, None) 
+scraper.schedule("http://www.nydems.org", {"state":"New York","party":"Democratic"}, None, None) 
+scraper.crawl()
 
 #scraper.scrape("http://www.cadem.org/our-party/leaders", {"state":"California","party":"Democratic"})
 #scraper.scrape("http://www.cadem.org/our-party/elected-officials", {"state":"California","party":"Democratic"})
 #scraper.scrape("http://www.cadem.org/our-party/our-county-committees", {"state":"California","party":"Democratic"})
 #scraper.scrape("http://www.cadem.org/our-party/dnc-members", {"state":"California","party":"Democratic"})
 #scraper.scrape("https://nydems.org/our-party/", {"state":"New York","party":"Democratic"})
-scraper.scrape("https://missouridemocrats.org/county-parties/", {"state":"Missouri","party":"Democratic"})
+#scraper.scrape("https://missouridemocrats.org/county-parties/", {"state":"Missouri","party":"Democratic"})
 #scraper.scrape("https://missouridemocrats.org/officers-and-staff/", {"state":"Missouri","party":"Democratic"})
 #scraper.scrape("https://www.indems.org/our-party/state-committee/", {"state":"Indiana","party":"Democratic"})
 
