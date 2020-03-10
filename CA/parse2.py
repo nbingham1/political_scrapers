@@ -12,6 +12,8 @@ import unicodedata
 import re
 import enchant
 from bs4 import UnicodeDammit
+from lxml import etree
+from difflib import SequenceMatcher
 
 from pyhtml.html import *
 from pyhtml.parse import *
@@ -47,7 +49,7 @@ with open("titles.txt", "r") as fptr:
 		title_tags.add(line.strip())
 
 
-name_excl = set(["regional", "website", "office", "camp", "employment", "ceo", "tlc", "tempore", "mr", "ms", "dnc", "latino", "february", "african"])
+name_excl = set(["regional", "website", "office", "camp", "employment", "ceo", "tlc", "tempore", "mr", "ms", "dnc", "latino", "february", "african", "puerto", "boe"])
 
 html_attrs = set(["id", "class", "style", "lang", "xml:lang", "coords", "shape", "href", "src", "width", "height", "rel"])
 html_tags = set(["svg", "path", "style", "script", "link", "form", "input"])
@@ -101,11 +103,11 @@ class ScrapeHTML:
 				decoded = decoded.replace(u"%20", u" ").replace(u"\u00c2", u" ").replace(u"\xe2&euro;&trade;", u"\'").replace(u"\xe2&euro;&oelig;", u"\"").replace(u"\xe2&euro;", "\"").replace(u"\"&ldquo;", "-")
 				#.replace(u"\xe2\x80\x9c", u"\"").replace(u"\xe2\x80\x9d", u"\"").replace(u"\xc3\xb3", u"\u00f3").replace(u"\xc3\xad", u"\u00ed").replace(u"\xe2\x20\xac\x21\x22", u"\'").replace(u"\xe2\x20\xac\x01\x53", u"\"").replace(u"\xe2\x20\xac", u"\"").replace(u"\xe2\x20\xac\x20\x1c", u" - ").replace(u"\xc3", u"\u00e9").replace(u"\x00\xc2", u" ")
 				print >>fptr, decoded.encode('utf8')
-		parser = Parser()
+		parser = etree.HTMLParser(target = Parser())
 		with open(cache + ".html", 'r') as fptr:
-			data = fptr.read().decode('utf8')
-			parser.feed(data)
-		return parser
+			data = fptr.read()
+			parser.feed(data.decode('utf8'))
+		return parser.close()
 
 	def extractLinks(self, elem, addr):
 		if 'mailto:' not in elem:
@@ -308,9 +310,9 @@ class ScrapeHTML:
 
 		options = [name.group(0) for name in names]
 
-		if len(options) > 0:
-			print "Searching: " + str(elem)
-			print "Options: " + str(options)
+		#if len(options) > 0:
+		#	print "Searching: " + str(elem)
+		#	print "Options: " + str(options)
 
 		r_pos = ur'Chair|Vice|Treasurer|Secretary|Director|Administrator|Fellow|Congressman|Congresswoman|Congressperson|Auditor|Leader|Senator|Representative|Member|Governer|Secretary|Controller|General|Attorney|Commissioner|Superindendent|Officer|President|Governor|Staff|Assemblymember|Rep\.|Sen\.|Speaker|Comptroller|Rev\.|Reverend|Mayor|Parliamentarian|Legal +Counsel|Chairperson'
 
@@ -320,23 +322,23 @@ class ScrapeHTML:
 		rng = []
 		start = 0
 		for i, obj in enumerate(objs):
-			title = obj.group(0)
+			title = obj.group(0).replace("  ", " ")
 			if not title:
 				print "Error: title matches empty string"
 			if i > 0 and obj.start(0) - start <= 1:
 				self.titles[-1] = (elem[rng[-1][1]:obj.end(0)], addr)
 			else:
-				if options:
-					print "Found: " + str(title)
+				#if options:
+				#	print "Found: " + str(title)
 				self.titles.append((title, addr))
 				rng.append((start, obj.start(0)))
 			start = obj.end(0)
-		if options:
-			print ""
+		#if options:
+		#	print ""
 		return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
 
 	def extractOrgs(self, elem, addr):
-		r_org = r'Democrats|Dems|Republicans|Repubs|Reps|Democratic +Party|Republican +Party|Board|County|State|City|Committee|Council|District(?: +[0-9]+[A-Za-z]*)?|Caucus'
+		r_org = r'Democrats|Dems|Republicans|Repubs|Reps|Democratic +Party|Republican +Party|Board|County|State|City|Committee|Council|District(?: +[0-9]+[A-Za-z]*)?|Caucus|BOE'
 
 		r_orgtitle = r'(?:(?:[A-Z][a-z]+|[0-9]+[a-z]*)(?: +| *- *))*(?=' + r_org + ')(?:' + r_org + ')(?![A-Za-z0-9])'
 		objs = re.finditer(r_orgtitle, elem)
@@ -359,7 +361,7 @@ class ScrapeHTML:
 		r_zip = r'[0-9]{5}(?:-[0-9]{4})?(?![A-Za-z0-9])'
 		r_city = r'(?:[A-Z][a-z.-]+ ?)+'
 		r_state = r'Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming'
-		r_stateabbr = r'AL\.?|AK\.?|AS\.?|AZ\.?|AR\.?|CA\.?|CO\.?|CT\.?|DE\.?|D\.?C\.?|FM\.?|FL\.?|GA\.?|GU\.?|HI\.?|ID\.?|IL\.?|IN\.?|IA\.?|KS\.?|KY\.?|LA\.?|ME\.?|MH\.?|MD\.?|MA\.?|MI\.?|MN\.?|MS\.?|MO\.?|MT\.?|NE\.?|NV\.?|NH\.?|NJ\.?|NM\.?|NY\.?|NC\.?|ND\.?|MP\.?|OH\.?|OK\.?|OR\.?|PW\.?|PA\.?|PR\.?|RI\.?|SC\.?|SD\.?|TN\.?|TX\.?|UT\.?|VT\.?|VI\.?|VA\.?|WA\.?|WV\.?|WI\.?|WY\.?'
+		r_stateabbr = r'A[lL]\.?|A[kK]\.?|A[sS]\.?|A[zZ]\.?|A[rR]\.?|C[aA]\.?|C[oO]\.?|C[tT]\.?|D[eE]\.?|D\.?C\.?|F[mM]\.?|F[lL]\.?|G[aA]\.?|G[uU]\.?|H[iI]\.?|I[dD]\.?|I[lL]\.?|I[nN]\.?|I[aA]\.?|K[sS]\.?|K[yY]\.?|L[aA]\.?|M[eE]\.?|M[hH]\.?|M[dD]\.?|M[aA]\.?|M[iI]\.?|M[nN]\.?|M[sS]\.?|M[oO]\.?|M[tT]\.?|N[eE]\.?|N[vV]\.?|N[hH]\.?|N[jJ]\.?|N[mM]\.?|N[yY]\.?|N[cC]\.?|N[dD]\.?|M[pP]\.?|O[hH]\.?|O[kK]\.?|O[rR]\.?|P[wW]\.?|P[aA]\.?|P[rR]\.?|R[iI]\.?|S[cC]\.?|S[dD]\.?|T[nN]\.?|T[xX]\.?|U[tT]\.?|V[tT]\.?|V[iI]\.?|V[aA]\.?|W[aA]\.?|W[vV]\.?|W[iI]\.?|W[yY]\.?'
 		
 		r_citystatezip = r_city + r', +(?:' + r_state + r'|' + r_stateabbr + r')(?:(?:, *| +)' + r_zip + r')?'
 
@@ -422,12 +424,13 @@ class ScrapeHTML:
 					value = self.extractOrgs(value, addr)
 					value = self.extractTitles(value, addr)
 					value = self.extractNames(value, addr)
-				elif key in ["href", "src"]:
+				elif key in ["href", "src", "style"]:
+					value = self.extractEmails(value, addr)
 					value = self.extractLinks(value, addr)
 
 	def extractStr(self, tag, elem, addr):
 		elem = elem.strip().replace(u'\xa0', u' ').replace(u'\xa9', u'')
-		if elem:
+		if elem and len(elem) < 256:
 			elem = self.extractPhones(elem, addr)
 			elem = self.extractEmails(elem, addr)
 			elem = self.extractStreet(elem, addr)
@@ -444,6 +447,9 @@ class ScrapeHTML:
 			"h3": 3,
 			"h4": 4,
 			"h5": 5,
+			"h6": 6,
+			"h7": 7,
+			"h8": 8,
 		}
 
 		stack = [(0, [])] # (level, element content)
@@ -457,7 +463,7 @@ class ScrapeHTML:
 			else:
 				level = levels[elem.name]
 				while level <= stack[-1][0]:
-					stack.pop()
+					del stack[-1]
 
 				stack[-1][1].append(Div() << elem)
 				stack.append((level, stack[-1][1][-1].content))
@@ -567,16 +573,17 @@ class ScrapeHTML:
 			root = self.findRoot(root, addr, self.apt)
 			root = self.findRoot(root, addr, self.phones)
 			root = self.findRoot(root, addr, self.fax)
+			root = self.findRoot(root, addr, self.names)
 			found = False
 			for addrs in self.names.values():
 				for test in addrs:
-					if len(test) > len(root) and test[0:len(root)] == root:
+					if test[0:len(root)] == root:
 						found = True
 						break
 				if found:
 					break
 
-			if found:
+			if not found:
 				if org in organization:
 					organization[org].append(addr)
 				else:
@@ -633,18 +640,18 @@ class ScrapeHTML:
 				start, end, maxdepth = self.findBounds(name, start, end, maxdepth, addr, self.names)
 				start, end, maxdepth = self.findBounds(name, start, end, maxdepth, addr, organization)
 			
-				cstart = addr[maxdepth] if maxdepth < len(addr) else addr
+				cstart = addr[maxdepth] if maxdepth < len(addr) else start
 				base = addr[0:maxdepth]
-				if start is None or end is None:
-					root = []
-					root = self.findRoot(root, addr, self.emails)
-					root = self.findRoot(root, addr, self.phones)
-					root = self.findRoot(root, addr, self.links)
-					root = self.findRoot(root, addr, self.fax)
-					if len(root) > len(base):
-						base = root
-						start = None
-						end = None
+				#if start is None and end is None:
+				#	root = []
+				#	root = self.findRoot(root, addr, self.emails)
+				#	root = self.findRoot(root, addr, self.phones)
+				#	root = self.findRoot(root, addr, self.links)
+				#	root = self.findRoot(root, addr, self.fax)
+				#	if len(root) > len(base):
+				#		base = root
+				#		start = None
+				#		end = None
 
 				entry = self.buildEntry(entry, base, cstart, end, self.emails, 'email')
 				entry = self.buildEntry(entry, base, cstart, end, self.phones, 'phone')
@@ -673,7 +680,7 @@ class ScrapeHTML:
 			
 				#start = addr[maxdepth] if maxdepth < len(addr) else addr
 				base = addr[0:maxdepth]
-				if start is None or end is None:
+				if start is None and end is None:
 					root = []
 					root = self.findRoot(root, addr, self.emails)
 					root = self.findRoot(root, addr, self.phones)
@@ -723,21 +730,32 @@ class ScrapeHTML:
 		if parser:
 			syntax = self.getURL(url, uid).syntax
 			self.normalize(syntax.content)
-			print syntax
 			self.traverse(syntax)
 			self.develop(props)
 
 scraper = ScrapeHTML()
 
-#scraper.scrape("http://www.cadem.org/our-party/leaders", {"state":"California","party":"Democratic"})
-#scraper.scrape("http://www.cadem.org/our-party/elected-officials", {"state":"California","party":"Democratic"})
-#scraper.scrape("http://www.cadem.org/our-party/our-county-committees", {"state":"California","party":"Democratic"})
-#scraper.scrape("http://www.cadem.org/our-party/dnc-members", {"state":"California","party":"Democratic"})
-#scraper.scrape("https://nydems.org/our-party/", {"state":"New York","party":"Democratic"})
-#scraper.scrape("https://missouridemocrats.org/county-parties/", {"state":"Missouri","party":"Democratic"})
-#scraper.scrape("https://missouridemocrats.org/officers-and-staff/", {"state":"Missouri","party":"Democratic"})
+
+scraper.scrape("http://www.cadem.org/our-party/leaders", {"state":"California","party":"Democratic"})
+scraper.scrape("http://www.cadem.org/our-party/elected-officials", {"state":"California","party":"Democratic"})
+scraper.scrape("http://www.cadem.org/our-party/our-county-committees", {"state":"California","party":"Democratic"})
+scraper.scrape("http://www.cadem.org/our-party/dnc-members", {"state":"California","party":"Democratic"})
+scraper.scrape("https://nydems.org/our-party/", {"state":"New York","party":"Democratic"})
+scraper.scrape("https://missouridemocrats.org/county-parties/", {"state":"Missouri","party":"Democratic"})
+scraper.scrape("https://missouridemocrats.org/officers-and-staff/", {"state":"Missouri","party":"Democratic"})
 scraper.scrape("https://www.indems.org/our-party/state-committee/", {"state":"Indiana","party":"Democratic"})
+
 #scraper.scrape("https://northplainfield.org/government/departments/directory.php")
+#scraper.scrape("http://aldemocrats.org/local/calhoun")
+#scraper.scrape("http://jameswelch.co/our-team/")
+#scraper.scrape("http://jameswelch.co/our-candidates/")
+#scraper.scrape("https://adlcc.com/our-members/state-senate/")
+#scraper.scrape("https://adlcc.com/our-members/state-house/")
+scraper.scrape("https://ctdems.org/your-party/officers/")
+
+# TODO check similarity between name or organization name and emails or links
+# s = SequenceMatcher(None, name, link)
+# s.ratio()
 
 print json.dumps(scraper.people, indent=2, cls=SetEncoder)
 print json.dumps(scraper.groups, indent=2, cls=SetEncoder)
