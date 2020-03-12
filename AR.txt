@@ -1,0 +1,6 @@
+[
+	{ "url": "https://www.arkdems.org/our-officers/", "props": { "state": "Arkansas" } },
+	{ "url": "https://www.arkdems.org/state-committee-members/", "props": { "state": "Arkansas" } },
+	{ "url": "https://www.arkdems.org/county-party-officers/", "props": { "state": "Arkansas" } },
+	{ "url": "https://www.arkdems.org/our-staff/", "props": { "state": "Arkansas" } }
+]
