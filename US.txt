@@ -1,0 +1,6 @@
+[
+	{ "url": "https://www.democrats.senate.gov/about-senate-dems/our-caucus" },
+	{ "url": "https://www.democrats.senate.gov/dsoc" },
+	{ "url": "https://www.democrats.senate.gov/climate#Members" },
+	{ "url": "https://democrats.org/who-we-are/leadership-2-2/" }
+]

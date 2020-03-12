@@ -1,0 +1,7 @@
+[
+	{ "url": "http://www.alaskademocrats.org/our-leadership", "props": { "state": "Alaska" } },
+	{ "url": "https://docs.google.com/spreadsheets/d/1h-ruy56ewo_BqYmopNkqHfSgkUaj8EWVA3PoTnqelYU/edit#gid=3", "props": { "state": "Alaska" } },
+	{ "url": "http://www.alaskademocrats.org/staff", "props": { "state": "Alaska" } },
+	{ "url": "http://akhouse.org/rep_foster/about/", "props": { "state": "Alaska" } },
+	{ "url": "http://akhouse.org/rep_foster/contact-me/", "props": { "state": "Alaska" } }
+]
