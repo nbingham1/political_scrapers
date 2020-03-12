@@ -1,0 +1,8 @@
+[
+	{ "url": "https://www.cadem.org/our-party/elected-officials", "props": { "state": "California" } },
+	{ "url": "https://www.cadem.org/our-party/leaders", "props": { "state": "California" } },
+	{ "url": "https://www.cadem.org/our-party/our-county-committees", "props": { "state": "California" } },
+	{ "url": "https://www.cadem.org/our-party/caucuses", "props": { "state": "California" } },
+	{ "url": "https://www.cadem.org/our-party/statewide-chartered-organizations", "props": { "state": "California" } },
+	{ "url": "https://www.cadem.org/our-party/dnc-members", "props": { "state": "California" } }
+]
