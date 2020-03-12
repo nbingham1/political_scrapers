@@ -1,0 +1,15 @@
+[
+	{ "url": "https://www.deldems.org/about/state-party-leadership", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/about/local-party/wilmington", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/about/local-party/new-castle", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/about/local-party/kent", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/about/local-party/sussex", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/our-party/our-staff/our-staff", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/about/clubs", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/elected-officials/federal/", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/elected-officials/statewide/", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/elected-officials/senate/", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/elected-officials/house", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/elected-officials/county", "props": { "state": "Delaware" } },
+	{ "url": "https://www.deldems.org/elected-officials/city", "props": { "state": "Delaware" } }
+]
