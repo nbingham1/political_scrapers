@@ -21,12 +21,6 @@ from pyhtml.parse import *
 # To parse google sheets:
 # https://docs.google.com/spreadsheets/d/1kWoPXvugCEtxluGcHJuq4geWBAFa0HhI-V3BVelVgJ8/gviz/tq?tqx=out:csv&sheet=
 
-class SetEncoder(json.JSONEncoder):
-	def default(self, obj):
-		if isinstance(obj, set):
-			return list(obj)
-		return json.JSONEncoder.default(self, obj)
-
 def depth(addr1, addr2):
 	for i, (a, b) in enumerate(zip(addr1, addr2)):
 		if a != b:
@@ -48,13 +42,80 @@ with open("titles.txt", "r") as fptr:
 	for line in fptr:
 		title_tags.add(line.strip())
 
-
 name_excl = set(["regional", "website", "office", "camp", "employment", "ceo", "tlc", "tempore", "mr", "ms", "dnc", "latino", "february", "african", "puerto", "boe"])
 
 html_attrs = set(["id", "class", "style", "lang", "xml:lang", "coords", "shape", "href", "src", "width", "height", "rel"])
 html_tags = set(["svg", "path", "style", "script", "link", "form", "input"])
 
 phone_codes = [("ABC", 2), ("DEF", 3), ("GHI", 4), ("JKL", 5), ("MNO", 6), ("PQRS", 7), ("TUV", 8), ("WXYZ", 9)]
+
+class Url:
+	def __init__(self, protocol, domain, port, path, anchor, get):
+		self.protocol = "http"
+		if protocol is not None:
+			self.protocol = protocol
+		self.domain = domain
+		self.port = port
+		self.path = path
+		self.anchor = anchor
+		self.get = ""
+		if get is not None:
+			get = [attr.split('=') for attr in get.split('&')]
+			self.get = dict({attr[0]: attr[1] if len(attr) > 1 else "" for attr in get})
+		else:
+			self.get = dict()
+
+	def __repr__(self):
+		result = ""
+		if self.domain:
+			result += self.protocol + "://" + self.domain
+			if self.port:
+				result += ":" + self.port
+		if self.path:
+			result += self.path
+		if self.anchor:
+			result += "#" + self.anchor
+		if self.get:
+			result += "?" + "&".join([str(key) + "=" + str(value) for key, value in self.get.items()])
+		return result
+
+	def __hash__(self):
+		return hash(repr(self))
+
+	def __lt__(self, other):
+		return repr(self) < repr(other)
+
+	def __eq__(self, other):
+		return repr(self) == repr(other)
+
+def extractUrls(text, domain = None):
+	r_domain = r'(?:([a-z]+)://)?([-A-Za-z0-9_]+(?:\.[-A-Za-z0-9_]+)+)(?::([0-9]+))?'
+	r_path = r'((?:/[-A-Za-z0-9_%]+)+(?:\.(?:[Hh][Tt][Mm][Ll]?|[Pp][Yy]|[Pp][Hh][Pp]|[Jj][Pp][Ee]?[Gg]|[Pp][Nn][Gg]|[Gg][Ii][Ff]|[Tt][Xx][Tt]|[Mm][Dd]|[Pp][Dd][Ff]|[Xx][Ll][Ss][Xx]?)|/)?)'
+	r_anchor = r'#([-A-Za-z0-9_]+)'
+	r_get = r'\?([-A-Za-z0-9_]+=[-\?\.%:/A-Za-z0-9_\"\']*(?:\&[-A-Za-z0-9_]+=[-\?\.%:/A-Za-z0-9_\"\']*)*)'
+	r_second = r_path + r'(?:' + r_anchor + ')?' + r'(?:' + r_get + r')?'
+	r_link = r'(?![-_a-zA-Z0-9@])(?:' + r_domain + r_second + r'|' + r_second + r'|' + r_domain + r')'
+	objs = re.finditer(r_link, text)
+	result = []
+	for obj in objs:
+		groups = obj.groups()
+		result.append((obj.start(0), obj.end(0), Url(
+			groups[0] if groups[0] else groups[9], # protocol
+			groups[1] if groups[1] else (groups[10] if groups[10] else domain), # domain
+			groups[2] if groups[2] else groups[11], # port
+			groups[3] if groups[3] else groups[6], # path
+			groups[4] if groups[4] else groups[7], # anchor
+			groups[5] if groups[5] else groups[8], # get
+		)))
+	return result
+
+class SetEncoder(json.JSONEncoder):
+	def default(self, obj):
+		if isinstance(obj, set):
+			return list(obj)
+		elif isinstance(obj, Url):
+			return repr(obj)
+		return json.JSONEncoder.default(self, obj)
 
 class ScrapeHTML:
 	def __init__(self):
@@ -66,9 +127,13 @@ class ScrapeHTML:
 			("Accept-Encoding", "gzip, deflate, br")
 		]
 
+		self.url = None
+		self.urls = []
 		self.visited = []
 		self.tovisit = []
-		self.indexptr = None
+		
+		self.urlIndex = []
+		self.urlIndexFile = None
 
 		self.eng = enchant.Dict("en_US")
 		self.eng.add("signup")
@@ -113,30 +178,24 @@ class ScrapeHTML:
 		return parser.close()
 
 	def extractLinks(self, elem, addr):
-		if 'mailto:' not in elem:
-			r_domain = r'(?:[a-z]+://)?[-A-Za-z0-9_]+(?:\.[-A-Za-z0-9_]+)+'
-			r_path = r'(?:/[-A-Za-z0-9 _]+)+(?:\.(?:html|py|php|jpg|jpeg|png|gif|txt|md)|/)?'
-			r_anchor = r'#[-A-Za-z0-9_]+'
-			r_get = r'\?[-A-Za-z0-9_]+=[-A-Za-z0-9_ \"\']*(?:\&[-A-Za-z0-9_]+=[-A-Za-z0-9_ \"\']*)*'
-			r_second = r_path + r'(?:' + r_anchor + ')?' + r'(?:' + r_get + r')?'
-			r_link = r'(?:' + r_domain + r_second + r'|' + r_path + r'|' + r_domain + '/?)'
-			objs = re.finditer(r_link, elem)
+		#if 'mailto:' not in elem:
 			rng = []
-			start = 0
-			for obj in objs:
-				link = obj.group(0).lower()
-				if not link:
-					print "Error: link matches empty string"
-				if "wp-json" not in link and "googleapis.com" not in link and "wp-includes" not in link and "googletagmanager.com" not in link and "addthis.com" not in link:
-					if link in self.links:
-						self.links[link].append(addr)
+			idx = 0
+
+			urls = extractUrls(elem, self.curr_url.domain if self.curr_url else None)
+			for start, end, url in urls:
+				if (not url.domain or ("googleapis.com" not in url.domain and "googletagmanager.com" not in url.domain and "addthis.com" not in url.domain)) and (not url.path or ("wp-json" not in url.path and "wp-includes" not in url.path and "press" not in url.path and "resolutions" not in url.path)):
+					if url not in self.urls:
+						self.urls.append(url)
+					if url in self.links:
+						self.links[url].append(addr)
 					else:
-						self.links[link] = [addr]
-					rng.append((start, obj.start(0)))
-					start = obj.end(0)
-			return '{}'.join([elem[s:e] for s, e in rng] + [elem[start:]])
-		else:
-			return elem
+						self.links[url] = [addr]
+					rng.append((idx, start))
+					idx = end
+			return '{}'.join([elem[s:e] for s, e in rng] + [elem[idx:]])
+		#else:
+		#	return elem
 
 	def extractEmails(self, elem, addr):
 		objs = re.finditer(r'[-_A-Za-z\.0-9]+@[-_A-Za-z0-9\.]+', elem)
@@ -729,9 +788,10 @@ class ScrapeHTML:
 		self.orgs = []
 
 	def scrape(self, url, uid, props=None, owner=None):
-		parser = self.getURL(url, uid)
+		self.curr_url = url
+		parser = self.getURL(repr(url), uid)
 		if parser:
-			syntax = self.getURL(url, uid).syntax
+			syntax = parser.syntax
 			self.normalize(syntax.content)
 			self.traverse(syntax)
 			self.develop(props)
@@ -740,34 +800,46 @@ class ScrapeHTML:
 		self.tovisit.append((url, props, owner, recurse))
 
 	def getUID(self, url):
-		if not self.indexptr:
-			self.indexptr = open("index.txt", "a+")
-			self.indexptr.seek(0, 0)
-			for line in self.indexptr:
-				line = line.strip()
-				if self.visited:
-					self.visited.append(line)
+		if not self.urlIndexFile:
+			self.urlIndexFile = open("index.txt", "a+")
+			self.urlIndexFile.seek(0, 0)
+			for line in self.urlIndexFile:
+				urls = extractUrls(line)
+				if self.urlIndex:
+					self.urlIndex.extend([link for start, end, link in urls])
 				else:
-					self.visited = [line]
-		if url in self.visited:
-			return self.visited.index(url)
+					self.urlIndex = [link for start, end, link in urls]
+		if url in self.urlIndex:
+			return self.urlIndex.index(url)
 		else:
-			uid = len(self.visited)
-			self.visited.append(url)
-			print >>self.indexptr, url
+			uid = len(self.urlIndex)
+			self.urlIndex.append(url)
+			print >>self.urlIndexFile, url
 			return uid
 
 	def crawl(self):
 		i = 0
-		while i < len(self.tovisit):
-			url, props, owner, recursion = self.tovisit[i]
-			uid = self.getUID(url)
-			self.scrape(url, uid, props, owner)
+		while i < len(self.tovisit) and len(self.visited) < 100:
+			url, props, owner, recurse = self.tovisit[i]
+			if url not in self.visited:
+				uid = self.getUID(url)
+				self.visited.append(url)
+				print str(len(self.visited)) + " " + repr(url)
+				self.scrape(url, uid, props, owner)
+				if recurse:
+					recurse(self, url, props, owner, self.urls)
 			i += 1
 
+def recurse(scraper, url, props, owner, urls):
+	for test in urls:
+		if test.domain == url.domain and (not test.path or not re.search(r'\.(?:[Jj][Pp][Ee]?[Gg]|[Pp][Nn][Gg]|[Gg][Ii][Ff]|[Pp][Dd][Ff]|[Xx][Ll][Ss][Xx]?)', test.path)):
+			scraper.schedule(test, props, owner, recurse)
+
 scraper = ScrapeHTML()
-scraper.schedule("http://www.cadem.org", {"state":"California","party":"Democratic"}, None, None) 
-scraper.schedule("http://www.nydems.org", {"state":"New York","party":"Democratic"}, None, None) 
+scraper.schedule(Url("http", "www.cadem.org", None, None, None, None), {"state":"California","party":"Democratic"}, None, recurse) 
+#scraper.schedule(Url("http", "www.cadem.org", None, "/news/press-releases/2009/california-democratic-party-protect-all-californians-stop-the-severe-cuts-and-support-a-balanced-solution", None, None), {"state":"California","party":"Democratic"}, None, None) 
+#scraper.schedule(Url("http", "www.cadem.org", None, "/our-party/elected-officials", None, None), {"state":"California","party":"Democratic"}, None, None) 
+#scraper.schedule(Url("http", "www.nydems.org", None, None, None, None), {"state":"New York","party":"Democratic"}, None, recurse) 
 scraper.crawl()
 
 #scraper.scrape("http://www.cadem.org/our-party/leaders", {"state":"California","party":"Democratic"})
