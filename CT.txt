@@ -1,0 +1,6 @@
+[
+	{ "url": "https://ctdems.org/your-party/electeds/", "props": { "state": "Connecticut" } },
+	{ "url": "https://ctdems.org/your-party/officers/", "props": { "state": "Connecticut" } },
+	{ "url": "https://ctdems.org/your-party/staff/", "props": { "state": "Connecticut" } },
+	{ "url": "https://ctdems.org/dtcs/", "props": { "state": "Connecticut" } }
+]

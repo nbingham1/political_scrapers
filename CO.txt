@@ -1,0 +1,5 @@
+[
+	{ "url": "https://www.coloradodems.org/state-officer-elections/", "props": { "state": "Colorado" } },
+	{ "url": "https://www.coloradodems.org/welcome/staff/", "props": { "state": "Colorado" } },
+	{ "url": "https://www.coloradodems.org/welcome/county-parties/", "props": { "state": "Colorado" } }
+]
